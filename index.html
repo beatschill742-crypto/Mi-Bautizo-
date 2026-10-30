@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bautizo - Victoria Guadalupe</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-bg-pink: #fce4ec;
+            --color-pink-mid: #f8bbd0;
+            --color-pink-dark: #d81b60;
+            --color-gold: #d4af37;
+            --color-gold-light: #f3e5ab;
+            --color-text: #4a2c3a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            font-family: 'Playfair Display', serif;
+            background-color: var(--color-bg-pink);
+            color: var(--color-text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- EFECTOS DISNEY DE FONDO --- */
+        #magic-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .rainbow-bg {
+            position: fixed;
+            top: -20vh;
+            left: -10vw;
+            width: 120vw;
+            height: 120vw;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 0 20px rgba(255, 182, 193, 0.15),
+                0 0 0 40px rgba(255, 218, 185, 0.15),
+                0 0 0 60px rgba(255, 255, 224, 0.15),
+                0 0 0 80px rgba(173, 216, 230, 0.15),
+                0 0 0 100px rgba(221, 160, 221, 0.15);
+            opacity: 0.6;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .castle-silhouette {
+            position: fixed;
+            bottom: 12vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23f8bbd0" opacity="0.4"><polygon points="30,50 30,100 70,100 70,50 50,20"/></svg>') no-repeat center bottom;
+            background-size: contain;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .animated-lake {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 15vh;
+            background: linear-gradient(to top, rgba(212, 175, 55, 0.4), rgba(248, 187, 208, 0.5));
+            z-index: 3;
+            animation: waveMotion 8s infinite alternate ease-in-out;
+            border-top-left-radius: 50% 20px;
+            border-top-right-radius: 50% 20px;
+            pointer-events: none;
+        }
+
+        @keyframes waveMotion {
+            0% { transform: translateX(0) translateY(5px); }
+            100% { transform: translateX(-10%) translateY(-5px); }
+        }
+
+        /* --- LIBRO MÁGICO EN 3D --- */
+        #book-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(252, 228, 236, 0.95), rgba(248, 187, 208, 0.95));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            perspective: 1500px;
+            transition: opacity 1.5s ease 1s, visibility 1.5s ease 1s;
+        }
+
+        #book-screen.closed {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .book {
+            width: 300px;
+            height: 420px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .book-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fff, var(--color-bg-pink));
+            border: 6px solid var(--color-gold);
+            border-radius: 4px 15px 15px 4px;
+            box-shadow: 15px 20px 40px rgba(0,0,0,0.2), inset 0 0 30px rgba(212, 175, 55, 0.3);
+            transform-origin: left center;
+            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .book.open .book-cover {
+            transform: rotateY(-130deg);
+        }
+
+        .book-spine {
+            position: absolute;
+            left: -15px;
+            width: 30px;
+            height: 100%;
+            background: var(--color-gold);
+            transform: rotateY(-90deg);
+            transform-origin: right center;
+            border-radius: 10px 0 0 10px;
+            box-shadow: inset 5px 0 10px rgba(0,0,0,0.2);
+        }
+
+        .book-pages {
+            position: absolute;
+            width: 98%;
+            height: 98%;
+            top: 1%;
+            left: 2%;
+            background: #fff;
+            border-radius: 0 12px 12px 0;
+            box-shadow: inset -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .glowing-portal {
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, #fff, var(--color-bg-pink));
+            border-radius: 10px;
+            box-shadow: 0 0 40px #fff;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { box-shadow: 0 0 20px #fff, 0 0 40px var(--color-gold-light); }
+            to { box-shadow: 0 0 40px #fff, 0 0 80px var(--color-gold); }
+        }
+
+        .book-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: var(--color-pink-dark);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .book-instruction {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            color: var(--color-gold);
+            text-transform: uppercase;
+            animation: float 2s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .wrapper {
+            position: relative;
+            z-index: 20;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .fairy-tale-frame {
+            margin: 40px auto;
+            padding: 50px 30px;
+            max-width: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(252, 228, 236, 0.95));
+            border: 8px solid var(--color-gold);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2), inset 0 0 20px rgba(212, 175, 55, 0.4);
+            text-align: center;
+            position: relative;
+        }
+
+        .fairy-tale-frame::before, .fairy-tale-frame::after {
+            content: '✨';
+            position: absolute;
+            font-size: 2rem;
+            color: var(--color-gold);
+        }
+        .fairy-tale-frame::before { top: -15px; left: 50%; transform: translateX(-50%); }
+        .fairy-tale-frame::after { bottom: -15px; left: 50%; transform: translateX(-50%); }
+
+        .fairy-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .section-block {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        h1.main-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.5rem, 10vw, 5rem);
+            color: var(--color-pink-dark);
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            color: var(--color-gold);
+            text-transform: uppercase;
+        }
+
+        /* NOMBRES Y CONECTORES ELEGANTES */
+        .family-role {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--color-gold);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .name-elegant {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .conector-elegante {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: var(--color-gold);
+            margin: -5px 0;
+            line-height: 1;
+        }
+
+        .date-box {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: var(--color-text);
+            border-top: 2px solid var(--color-gold);
+            border-bottom: 2px solid var(--color-gold);
+            padding: 15px 0;
+            margin: 30px auto;
+            width: 80%;
+            letter-spacing: 2px;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .location-card {
+            border: 1px dashed var(--color-gold);
+            border-radius: 15px;
+            padding: 25px 15px;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .btn-gold {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            transition: transform 0.3s;
+        }
+        .btn-gold:hover { transform: translateY(-3px); }
+
+        /* FORMULARIO RSVP */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            color: var(--color-gold);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.8);
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--color-text);
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--color-gold);
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 100; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .music-btn svg { fill: #fff; width: 20px; height: 20px; }
+
+        @media (min-width: 768px) {
+            .location-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fondos Mágicos Animados -->
+    <div class="rainbow-bg"></div>
+    <div class="castle-silhouette"></div>
+    <div class="animated-lake"></div>
+    <canvas id="magic-canvas"></canvas>
+
+    <!-- Reproductor de Audio -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="cancionbautizo.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-btn" onclick="toggleMusic()">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    </div>
+
+    <!-- Libro 3D de Apertura -->
+    <div id="book-screen">
+        <div class="book" id="magic-book">
+            <div class="book-spine"></div>
+            <div class="book-pages">
+                <div class="glowing-portal"></div>
+            </div>
+            <div class="book-cover" onclick="openBook()">
+                <div style="border: 2px solid var(--color-gold); padding: 30px 10px; border-radius: 10px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <p class="subtitle" style="margin-bottom: 10px;">Mi Bautizo</p>
+                    <h1 class="book-title">Victoria<br>Guadalupe</h1>
+                    <div style="font-size: 3rem; margin: 20px 0;">🌸</div>
+                    <p class="book-instruction">Toca para abrir la magia</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido de la Invitación -->
+    <div class="wrapper">
+        
+        <div class="fairy-tale-frame">
+            <p class="fairy-quote">
+                "Había una vez una hermosa princesa que llegó para llenar de alegría nuestros corazones y hoy recibe la luz del bautismo."
+            </p>
+        </div>
+
+        <div class="section-block">
+            <p class="subtitle">Con la bendición de Dios</p>
+            <h1 class="main-name">Victoria Guadalupe</h1>
+            
+            <div class="date-box">
+                28 &nbsp;•&nbsp; NOVIEMBRE &nbsp;•&nbsp; 2026
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3 class="family-role">Mis Padres</h3>
+                <p class="name-elegant">Marlen Mercado González</p>
+                <p class="conector-elegante">y</p>
+                <p class="name-elegant">Víctor Iván Hernández</p>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3 class="family-role">Mis Padrinos</h3>
+                <p class="name-elegant">Brenda Fernanda Hernández</p>
+                <p class="conector-elegante">y</p>
+                <p class="name-elegant">Yaotl Ojeda Hidalgo</p>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h3 class="family-role" style="font-size: 1.8rem; margin-bottom: 30px;">La Celebración</h3>
+            
+            <div class="location-grid">
+                <div class="location-card">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">⛪</div>
+                    <h4 style="font-family: 'Cinzel', serif; color: var(--color-gold); font-size: 1.2rem;">Ceremonia Religiosa</h4>
+                    <p style="font-size: 1.4rem; font-weight: 600; margin: 10px 0;">11:30 A.M.</p>
+                    <a href="https://maps.app.goo.gl/WBwBP4vnNVskumdq9?g_st=ic" target="_blank" class="btn-gold">Ver Ubicación</a>
+                </div>
+
+                <div class="location-card">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🏰</div>
+                    <h4 style="font-family: 'Cinzel', serif; color: var(--color-gold); font-size: 1.2rem;">Recepción</h4>
+                    <p style="font-size: 1.4rem; font-weight: 600; margin: 10px 0;">3:30 P.M.</p>
+                    <a href="https://maps.app.goo.gl/6HPQSBxFD7sHMcEQ8" target="_blank" class="btn-gold">Ver Ubicación</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h3 class="family-role" style="font-size: 1.8rem;">Acompáñanos</h3>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">Por favor, confirma tu asistencia para compartir este día mágico.</p>
+            
+            <form id="rsvp-form" style="max-width: 400px; margin: 0 auto;">
+                <div class="form-group">
+                    <label for="nombre">Nombre y Apellidos</label>
+                    <input type="text" id="nombre" name="Nombre" class="form-input" placeholder="Ej. Familia Rodríguez" required>
+                </div>
+                <div class="form-group">
+                    <label for="asiste">¿Asistirás al bautizo?</label>
+                    <select id="asiste" name="Asistencia" class="form-input" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Sí asisto">Sí asisto</option>
+                        <option value="No asisto">No asisto</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-gold" style="width: 100%; border: none; font-size: 1.1rem; cursor: pointer;">
+                    Enviar Confirmación
+                </button>
+            </form>
+            <div id="rsvp-msg" style="display:none; margin-top: 20px; color: var(--color-pink-dark); font-weight: bold; font-family: 'Cinzel', serif;">¡Gracias por tu mágica respuesta!</div>
+        </div>
+
+    </div>
+
+    <script>
+        const audio = document.getElementById('bg-music');
+        let isMusicPlaying = false;
+
+        function openBook() {
+            document.getElementById('magic-book').classList.add('open');
+            
+            // Iniciar música
+            audio.play().then(() => {
+                isMusicPlaying = true;
+            }).catch(e => console.log("Se requiere interacción para audio"));
+
+            // Desaparecer la pantalla inicial después de la animación
+            setTimeout(() => {
+                document.getElementById('book-screen').classList.add('closed');
+            }, 1200);
+        }
+
+        function toggleMusic() {
+            if(isMusicPlaying) {
+                audio.pause();
+                isMusicPlaying = false;
+            } else {
+                audio.play();
+                isMusicPlaying = true;
+            }
+        }
+
+        // --- SISTEMA DE PARTÍCULAS (POLVO DE HADAS) ---
+        const canvas = document.getElementById('magic-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function createParticle() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2.5 + 0.5,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5 - 0.5, // Flotan hacia arriba suavemente
+                color: Math.random() > 0.5 ? '#d4af37' : '#ffffff',
+                alpha: Math.random()
+            };
+        }
+
+        for(let i=0; i<50; i++) particles.push(createParticle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for(let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha += (Math.random() - 0.5) * 0.05; // Titilan
+
+                if(p.alpha <= 0) p.alpha = 0;
+                if(p.alpha >= 1) p.alpha = 1;
+
+                if(p.y < 0) p.y = canvas.height;
+                if(p.x < 0 || p.x > canvas.width) p.x = Math.random() * canvas.width;
+
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- ENVÍO DE FORMULARIO RSVP ---
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            btn.innerText = "Enviando...";
+            btn.disabled = true;
+
+            // REEMPLAZAR ESTA URL POR LA DE GOOGLE SHEETS
+            const scriptURL = "TU_URL_DE_GOOGLE_SHEETS_AQUI"; 
+            const formData = new FormData(this);
+
+            /* fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(() => { */
+                this.style.display = 'none';
+                document.getElementById('rsvp-msg').style.display = 'block';
+            /* }).catch(error => {
+                btn.innerText = "Error - Reintentar";
+                btn.disabled = false;
+            }); */
+        });
+    </script>
+</body>
+</html>
