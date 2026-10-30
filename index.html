@@ -11,21 +11,18 @@
     
     <style>
         :root {
-            /* Paleta Premium Princesas (Rosa y Dorado) */
-            --color-bg-deep: #2A0818; /* Fondo muy oscuro para contraste de luz */
+            /* Paleta Premium Barbie 12 Princesas */
+            --color-bg-deep: #1A0812; 
             --color-pink-soft: #FDF0F4;
             --color-pink-mid: #E8B4C8;
             --color-magenta: #9E2A5B;
+            --color-magenta-glow: #d81b60;
             --color-gold: #D4AF37;
             --color-gold-light: #F9E596;
             --color-text-dark: #331221;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body, html {
             font-family: 'Playfair Display', serif;
@@ -35,176 +32,98 @@
             scroll-behavior: smooth;
         }
 
-        /* --- FONDOS Y DESTELLOS DE ALTA PRODUCCIÓN --- */
+        /* --- FONDOS CINEMATOGRÁFICOS --- */
         .magical-bg {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(180deg, #1f0512 0%, #4a1532 50%, #872450 100%);
-            z-index: 1;
-            pointer-events: none;
+            position: fixed; inset: 0;
+            background: linear-gradient(180deg, #1A0812 0%, #4a1532 50%, #872450 100%);
+            z-index: 1; pointer-events: none;
         }
 
-        /* Destellos de luz (Flares) */
-        .light-flare-1 {
-            position: fixed;
-            top: -10%; left: -10%;
-            width: 50vw; height: 50vw;
-            background: radial-gradient(circle, rgba(249, 229, 150, 0.2) 0%, rgba(249, 229, 150, 0) 70%);
-            z-index: 2; pointer-events: none;
-            animation: pulseFlare 8s infinite alternate;
-        }
-        
-        .light-flare-2 {
-            position: fixed;
-            bottom: -10%; right: -10%;
-            width: 60vw; height: 60vw;
-            background: radial-gradient(circle, rgba(232, 180, 200, 0.25) 0%, rgba(232, 180, 200, 0) 70%);
-            z-index: 2; pointer-events: none;
-            animation: pulseFlare 6s infinite alternate-reverse;
+        .castle-bg {
+            position: fixed; top: 10vh; left: 50%; transform: translateX(-50%);
+            width: 100vw; max-width: 600px; height: 50vh;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="%23F9E596" opacity="0.1"><path d="M100,20 L120,60 L150,60 L130,90 L140,130 L100,110 L60,130 L70,90 L50,60 L80,60 Z"/></svg>') no-repeat center center;
+            background-size: contain; z-index: 1; pointer-events: none;
+            animation: floatCastle 8s infinite alternate ease-in-out;
+            filter: blur(2px);
         }
 
-        @keyframes pulseFlare {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.3); opacity: 1; }
+        @keyframes floatCastle {
+            0% { transform: translateX(-50%) translateY(0); }
+            100% { transform: translateX(-50%) translateY(-20px); }
         }
 
-        /* Brillos laterales */
-        #lateral-sparkles {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 10;
-        }
+        #lateral-sparkles { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
 
-        /* --- PANTALLA DEL LIBRO MÁGICO --- */
+        /* --- LIBRO 3D MÁGICO --- */
         #book-screen {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(135deg, #1f0512, #4a1532);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            perspective: 2000px;
-            transition: opacity 1.2s ease, visibility 1.2s ease;
+            position: fixed; inset: 0;
+            background: radial-gradient(circle, #4a1532, #1A0812);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; perspective: 2500px;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
         }
 
         #white-flash {
-            position: fixed;
-            inset: 0;
-            background: #ffffff;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 10000;
-            transition: opacity 0.8s ease;
+            position: fixed; inset: 0; background: #ffffff; opacity: 0;
+            pointer-events: none; z-index: 10000; transition: opacity 1s ease;
         }
 
         .book {
-            width: 90vw;
-            max-width: 360px;
-            height: 75vh;
-            max-height: 550px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+            width: 90vw; max-width: 380px; height: 75vh; max-height: 550px;
+            position: relative; transform-style: preserve-3d;
+            transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.4);
         }
 
         .book-cover {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            position: absolute; width: 100%; height: 100%;
             background: linear-gradient(135deg, #ffffff 0%, var(--color-pink-soft) 100%);
-            border: 8px solid var(--color-gold);
-            border-radius: 4px 15px 15px 4px;
-            transform-origin: left center;
-            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 25px;
-            cursor: pointer;
-            z-index: 3;
-            box-shadow: inset 0 0 30px rgba(158, 42, 91, 0.2);
+            border: 10px solid var(--color-gold); border-radius: 4px 18px 18px 4px;
+            transform-origin: left center; transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 25px; cursor: pointer; z-index: 3;
+            box-shadow: inset 0 0 40px rgba(158, 42, 91, 0.3);
         }
 
-        .book.open .book-cover { transform: rotateY(-150deg); }
+        .book.open .book-cover { transform: rotateY(-160deg) scale(1.1); opacity: 0; transition: transform 2.5s ease, opacity 1s ease 1s; }
 
         .book-pages {
-            position: absolute;
-            width: 96%;
-            height: 96%;
-            top: 2%;
-            left: 2%;
-            background: #ffffff;
-            border-radius: 0 10px 10px 0;
-            box-shadow: inset -10px 0 20px rgba(0,0,0,0.1);
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: absolute; width: 95%; height: 96%; top: 2%; left: 2%;
+            background: #ffffff; border-radius: 0 12px 12px 0;
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.15); z-index: 1;
+            display: flex; justify-content: center; align-items: center;
         }
 
         .cover-border {
-            border: 2px solid var(--color-gold);
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 10px;
+            border: 2px dashed var(--color-gold); width: 100%; height: 100%; border-radius: 10px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
 
         .book-title {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4.5rem;
-            color: var(--color-magenta);
-            line-height: 0.9;
-            margin: 20px 0;
-        }
-
-        .click-to-open {
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            color: var(--color-gold);
-            margin-top: 30px;
-            animation: pulseText 2s infinite alternate;
-        }
-
-        @keyframes pulseText {
-            0% { opacity: 0.5; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1.05); }
+            font-family: 'Great Vibes', cursive; font-size: 4.8rem;
+            color: var(--color-magenta); line-height: 0.9; margin: 15px 0;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         }
 
         /* --- CONTENIDO PRINCIPAL --- */
         #main-content {
-            position: relative;
-            z-index: 20;
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 40px 20px 80px;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 1.5s ease 0.5s;
-        }
-        
-        #main-content.visible {
-            opacity: 1;
-            visibility: visible;
+            position: relative; z-index: 20; max-width: 750px; margin: 0 auto;
+            padding: 20px 20px 80px; display: none; opacity: 0;
+            animation: fadeInContent 2s ease 0.5s forwards;
         }
 
-        /* Animación Princesa Bailarina 3D (Solo CSS y SVG) */
+        @keyframes fadeInContent { to { opacity: 1; } }
+
+        /* Scroll Reveal Effect */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Princesa Animada Vectorial */
         .princess-animation {
-            width: 150px;
-            height: 200px;
-            margin: 0 auto 30px;
+            width: 160px; height: 220px; margin: 0 auto 30px;
             animation: dancingPrincess 6s infinite ease-in-out;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8));
         }
 
         @keyframes dancingPrincess {
@@ -213,164 +132,87 @@
             100% { transform: translateY(0) rotateY(360deg); }
         }
 
-        .section-glass {
-            background: rgba(253, 240, 244, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            border-radius: 20px;
-            padding: 45px 25px;
-            margin-bottom: 40px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            position: relative;
+        /* Paneles de Cristal */
+        .glass-panel {
+            background: rgba(253, 240, 244, 0.85); backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.6); border-radius: 25px;
+            padding: 50px 30px; margin-bottom: 50px; text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.5);
+            position: relative; overflow: hidden;
         }
 
-        .quote-elegant {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.4rem;
-            color: var(--color-magenta);
-            line-height: 1.6;
-            font-weight: 600;
+        .glass-panel::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 100%);
+            transform: rotate(30deg); pointer-events: none; opacity: 0.4;
         }
 
-        .subtitle {
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            letter-spacing: 5px;
-            color: var(--color-gold);
-            text-transform: uppercase;
-        }
-
-        .main-name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4.2rem;
-            color: var(--color-magenta);
-            margin: 15px 0;
-            line-height: 1.1;
-        }
-
+        .quote-elegant { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: var(--color-magenta); line-height: 1.6; font-weight: 600; }
+        
+        .main-name { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: var(--color-magenta-glow); margin: 15px 0; line-height: 1; text-shadow: 0 0 15px rgba(216, 27, 96, 0.2); }
+        
         .date-elegant {
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            color: var(--color-text-dark);
-            border-top: 1px solid var(--color-gold);
-            border-bottom: 1px solid var(--color-gold);
-            padding: 15px 0;
-            margin: 30px auto;
-            width: 90%;
-            letter-spacing: 3px;
+            font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700; color: var(--color-text-dark);
+            border-top: 2px solid var(--color-gold); border-bottom: 2px solid var(--color-gold);
+            padding: 20px 0; margin: 35px auto; width: 90%; letter-spacing: 4px;
         }
 
-        .role-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            color: var(--color-gold);
-            margin-bottom: 10px;
-            letter-spacing: 3px;
-        }
-
-        .name-text {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--color-text-dark);
-        }
-
-        .connector-y {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.5rem;
-            color: var(--color-gold);
-            margin: -5px 0;
-            line-height: 1;
-        }
+        .role-title { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--color-gold); margin-bottom: 10px; letter-spacing: 3px; font-weight: 700; }
+        .name-text { font-family: 'Montserrat', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--color-text-dark); }
+        .connector-y { font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--color-gold); margin: -10px 0; line-height: 1; }
 
         .location-box {
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 15px;
-            padding: 30px 20px;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, rgba(255,255,255,1), rgba(253, 240, 244, 0.8));
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 20px;
+            padding: 35px 20px; margin-bottom: 30px;
+            background: linear-gradient(135deg, rgba(255,255,255,1), rgba(253, 240, 244, 0.9));
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
-        /* Iconos SVG Finos */
-        .icon-svg {
-            width: 50px;
-            height: 50px;
-            fill: var(--color-gold);
-            margin-bottom: 15px;
-        }
+        .icon-svg { width: 55px; height: 55px; fill: var(--color-gold); margin-bottom: 15px; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.15)); }
 
-        .btn-gold {
-            display: inline-block;
-            background: linear-gradient(135deg, #E6C27A, #D4AF37);
-            color: #fff;
-            text-decoration: none;
-            padding: 14px 30px;
-            border-radius: 30px;
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            margin-top: 20px;
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            border: 1px solid #fff;
+        .btn-luxury {
+            display: inline-block; background: linear-gradient(135deg, #E6C27A, #D4AF37, #b8860b);
+            color: #fff; text-decoration: none; padding: 15px 35px; border-radius: 40px;
+            font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 2px;
+            margin-top: 20px; box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); text-transform: uppercase;
+            font-size: 0.9rem; border: none; cursor: pointer; transition: all 0.3s;
         }
+        .btn-luxury:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.6); }
 
         .form-input {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid var(--color-gold);
-            border-radius: 8px;
-            background: #fff;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            color: var(--color-text-dark);
-            margin-bottom: 20px;
+            width: 100%; padding: 16px; border: 1px solid var(--color-gold); border-radius: 10px;
+            background: rgba(255,255,255,0.9); font-family: 'Montserrat', sans-serif; font-size: 1rem; color: var(--color-text-dark); margin-bottom: 20px;
         }
-        
-        .form-label {
-            display: block;
-            text-align: left;
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            color: var(--color-magenta);
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            font-weight: 600;
+        .form-input:focus { outline: none; border-color: var(--color-magenta); box-shadow: 0 0 15px rgba(194, 24, 91, 0.3); }
+        .form-label { display: block; text-align: left; font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--color-magenta); margin-bottom: 10px; letter-spacing: 2px; font-weight: 700; }
+
+        /* Muro de los Deseos */
+        .wish-card {
+            background: #fff; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px;
+            padding: 20px; margin-bottom: 15px; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
+
+        /* Escena Final de Fuegos Artificiales */
+        .finale-section { position: relative; background: transparent; border: none; box-shadow: none; overflow: visible; padding-bottom: 150px; }
+        #fireworks-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
         /* Botón de Música */
         .music-btn {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: var(--color-magenta);
-            width: 55px; height: 55px;
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 1000; cursor: pointer;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            border: 2px solid var(--color-gold);
+            position: fixed; bottom: 25px; right: 25px; background: var(--color-magenta);
+            width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            z-index: 1000; cursor: pointer; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 2px solid var(--color-gold);
         }
-        .music-btn svg { fill: #fff; width: 24px; height: 24px; }
+        .music-btn svg { fill: #fff; width: 26px; height: 26px; }
     </style>
 </head>
 <body>
 
     <!-- FONDOS MAGIA -->
     <div class="magical-bg"></div>
-    <div class="light-flare-1"></div>
-    <div class="light-flare-2"></div>
+    <div class="castle-bg"></div>
     <canvas id="lateral-sparkles"></canvas>
-
-    <!-- PANTALLA BLANCA DE TRANSICIÓN (Flash) -->
     <div id="white-flash"></div>
 
-    <!-- AUDIO -->
     <audio id="bg-music" loop preload="auto">
         <source src="cancionbautizo.mp3" type="audio/mpeg">
     </audio>
@@ -383,55 +225,53 @@
     <div id="book-screen">
         <div class="book" id="magic-book">
             <div class="book-pages">
-                <!-- Portal de luz dentro del libro -->
-                <div style="width: 80%; height: 80%; background: radial-gradient(circle, #fff, #fdf0f4); border-radius: 10px; box-shadow: 0 0 40px #fff; animation: pulseText 1.5s infinite alternate;"></div>
+                <div style="width: 85%; height: 85%; background: radial-gradient(circle, #fff, #fdf0f4); border-radius: 10px; box-shadow: 0 0 50px #fff; animation: pulseFlare 1.5s infinite alternate;"></div>
             </div>
             <div class="book-cover" onclick="openBook()">
                 <div class="cover-border">
-                    <p style="font-family: 'Cinzel', serif; color: var(--color-gold); font-size: 1rem; letter-spacing: 4px; font-weight: 700;">Mi Bautizo</p>
+                    <p style="font-family: 'Cinzel', serif; color: var(--color-gold); font-size: 1.1rem; letter-spacing: 5px; font-weight: 700;">Mi Bautizo</p>
                     <h1 class="book-title">Victoria<br>Guadalupe</h1>
-                    <!-- Vector Corona Elegante en lugar de emoji -->
-                    <svg style="width: 60px; height: 60px; fill: var(--color-gold); margin: 15px 0;" viewBox="0 0 512 512">
+                    <svg class="icon-svg" style="width: 70px; height: 70px; margin: 20px 0;" viewBox="0 0 512 512">
                         <path d="M496 160L384 272l-128-192L128 272 16 160l64 256h352z"/>
                     </svg>
-                    <p class="click-to-open">TOCA PARA ENTRAR</p>
+                    <p style="font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; color: var(--color-gold); margin-top: 20px; animation: pulseFlare 2s infinite alternate;">TOCA PARA ENTRAR</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- CONTENIDO PRINCIPAL (Se muestra después de abrir) -->
+    <!-- CONTENIDO PRINCIPAL -->
     <div id="main-content">
         
-        <!-- PRINCESA ANIMADA (SVG VECTORIAL PURO Y ORO) -->
-        <div class="princess-animation">
+        <!-- PRINCESA ANIMADA (SVG VECTORIAL ORO) -->
+        <div class="princess-animation reveal">
             <svg viewBox="0 0 100 150" style="width: 100%; height: 100%; fill: var(--color-gold);">
                 <path d="M48,10 C48,6 52,6 52,10 C52,14 48,14 48,10 Z M46,16 C46,16 42,30 30,35 C28,36 30,40 32,38 C40,32 45,20 48,20 L52,20 C55,20 60,32 68,38 C70,40 72,36 70,35 C58,30 54,16 54,16 L46,16 Z M48,22 L52,22 L54,35 L46,35 Z M30,40 C30,40 20,90 40,95 L45,140 C45,145 50,145 50,140 L48,100 L52,100 L50,140 C50,145 55,145 55,140 L60,95 C80,90 70,40 70,40 C70,40 65,45 50,45 C35,45 30,40 30,40 Z"/>
             </svg>
         </div>
 
-        <div class="section-glass" style="border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; padding: 60px 40px; margin-bottom: 60px;">
+        <div class="glass-panel reveal" style="border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; padding: 70px 40px;">
             <p class="quote-elegant">
                 "Había una vez una hermosa princesa bailarina que llegó para llenar de alegría nuestros corazones..."
             </p>
         </div>
 
-        <div class="section-glass">
-            <p class="subtitle">Con la bendición de Dios</p>
+        <div class="glass-panel reveal">
+            <p style="font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 6px; color: var(--color-gold); font-weight: 700; text-transform: uppercase;">Con la bendición de Dios</p>
             <h1 class="main-name">Victoria Guadalupe</h1>
             
             <div class="date-elegant">
                 28 &nbsp;•&nbsp; NOVIEMBRE &nbsp;•&nbsp; 2026
             </div>
 
-            <div style="margin-top: 40px;">
+            <div style="margin-top: 50px;">
                 <h3 class="role-title">Mis Padres</h3>
                 <p class="name-text">Marlen Mercado González</p>
                 <p class="connector-y">y</p>
                 <p class="name-text">Víctor Iván Hernández</p>
             </div>
 
-            <div style="margin-top: 45px;">
+            <div style="margin-top: 50px;">
                 <h3 class="role-title">Mis Padrinos</h3>
                 <p class="name-text">Brenda Fernanda Hernández</p>
                 <p class="connector-y">y</p>
@@ -439,39 +279,55 @@
             </div>
         </div>
 
-        <div class="section-glass">
-            <h3 class="role-title" style="font-size: 1.8rem; color: var(--color-magenta); margin-bottom: 30px;">La Celebración</h3>
+        <div class="glass-panel reveal">
+            <h3 class="role-title" style="font-size: 2rem; color: var(--color-magenta); margin-bottom: 40px;">La Celebración</h3>
             
             <!-- TARJETA MISA -->
             <div class="location-box">
-                <!-- Icono Iglesia Elegante -->
                 <svg class="icon-svg" viewBox="0 0 24 24">
                     <path d="M12 2L2 12h3v10h14V12h3L12 2zm0 3.5l5 5V20H7v-9.5l5-5zM11 6h2v3h3v2h-3v3h-2v-3H8V9h3V6z"/>
                 </svg>
-                <h4 style="font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.3rem;">Misa</h4>
-                <p style="font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 700; margin: 10px 0; color: var(--color-gold);">11:30 A.M.</p>
-                <a href="https://maps.app.goo.gl/WBwBP4vnNVskumdq9?g_st=ic" target="_blank" class="btn-gold">Ver Ubicación</a>
+                <h4 style="font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.5rem; font-weight: 700;">Misa</h4>
+                <p style="font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 700; margin: 15px 0; color: var(--color-gold);">11:30 A.M.</p>
+                <a href="https://maps.app.goo.gl/WBwBP4vnNVskumdq9?g_st=ic" target="_blank" class="btn-luxury">✨ Ver Ubicación ✨</a>
             </div>
 
             <!-- TARJETA RECEPCIÓN -->
-            <div class="location-box">
-                <!-- Icono Castillo Elegante -->
+            <div class="location-box" style="margin-top: 40px;">
                 <svg class="icon-svg" viewBox="0 0 24 24">
                     <path d="M21 9v4h-2V9h-2v4h-2V7l3-4 3 4h-2zm-10-2V3L8 1l-3 2v4H3v4H1V9l3-4 3 4H5v4h2V7l4-5 4 5v6h2V9l3-4 3 4h-2v4h-2V9h-2v4H9V7zm-2 6H5v9h14v-9h-4v3H9v-3z"/>
                 </svg>
-                <h4 style="font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.3rem;">Recepción</h4>
-                <p style="font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 700; margin: 10px 0; color: var(--color-gold);">3:30 P.M.</p>
-                <a href="https://maps.app.goo.gl/6HPQSBxFD7sHMcEQ8" target="_blank" class="btn-gold">Ver Ubicación</a>
+                <h4 style="font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.5rem; font-weight: 700;">Recepción</h4>
+                <p style="font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 700; margin: 15px 0; color: var(--color-gold);">3:30 P.M.</p>
+                <a href="https://maps.app.goo.gl/6HPQSBxFD7sHMcEQ8" target="_blank" class="btn-luxury">✨ Ver Ubicación ✨</a>
             </div>
         </div>
 
-        <div class="section-glass">
-            <!-- Icono Carta Elegante -->
-            <svg class="icon-svg" viewBox="0 0 24 24">
+        <!-- MURO DE LOS DESEOS (¡NUEVO!) -->
+        <div class="glass-panel reveal">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <h3 class="role-title" style="font-size: 2rem; color: var(--color-magenta);">Muro de los Deseos</h3>
+            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 10px; font-size: 1.1rem; font-weight: 600;">Déjale un mensaje mágico a Victoria.</p>
+            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 30px; font-size: 0.8rem; color: #888;">*Los mensajes se guardan mágicamente en tu dispositivo local.</p>
+            
+            <form id="wishes-form" style="text-align: left; margin-bottom: 30px;">
+                <input type="text" id="w-name" class="form-input" placeholder="Tu Nombre" required>
+                <textarea id="w-msg" class="form-input" rows="3" placeholder="Escribe tu deseo aquí..." required></textarea>
+                <button type="submit" class="btn-luxury" style="width: 100%;">Publicar Deseo</button>
+            </form>
+
+            <div id="wishes-list" style="max-height: 350px; overflow-y: auto; padding-right: 10px;">
+                <!-- Los deseos aparecerán aquí -->
+            </div>
+        </div>
+
+        <div class="glass-panel reveal finale-section">
+            <canvas id="fireworks-canvas"></canvas>
+            <svg class="icon-svg" style="width: 65px; height: 65px;" viewBox="0 0 24 24">
                 <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
             </svg>
-            <h3 class="role-title" style="font-size: 1.8rem; color: var(--color-magenta);">Acompáñanos</h3>
-            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 25px; font-size: 1.1rem; font-weight: 600;">Confirma tu asistencia al baile real.</p>
+            <h3 class="role-title" style="font-size: 2rem; color: var(--color-magenta);">Acompáñanos</h3>
+            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 35px; font-size: 1.2rem; font-weight: 600;">Confirma tu asistencia al baile real.</p>
             
             <form id="rsvp-form">
                 <div>
@@ -486,40 +342,40 @@
                         <option value="No asisto">No asisto</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-gold" style="width: 100%; border: none; font-size: 1.1rem; cursor: pointer; padding: 18px;">
+                <button type="submit" class="btn-luxury" style="width: 100%;">
                     Confirmar Asistencia
                 </button>
             </form>
-            <div id="rsvp-msg" style="display:none; margin-top: 30px; font-size: 2rem; color: var(--color-magenta); line-height: 1.2; font-family: 'Great Vibes', cursive;">¡Tu magia nos acompañará!</div>
+            <div id="rsvp-msg" style="display:none; margin-top: 30px; font-size: 2.2rem; color: var(--color-magenta); line-height: 1.2; font-family: 'Great Vibes', cursive; text-shadow: 0 0 15px rgba(255,255,255,0.8);">¡Tu magia nos acompañará!</div>
         </div>
     </div>
 
     <script>
-        // --- CONTROL DE AUDIO Y APERTURA DE LIBRO ---
+        // --- APERTURA Y AUDIO ---
         const audio = document.getElementById('bg-music');
         let isMusicPlaying = false;
 
         function openBook() {
-            // Animación de abrir libro
             document.getElementById('magic-book').classList.add('open');
-            
-            // Iniciar música
             audio.play().then(() => { isMusicPlaying = true; }).catch(e => console.log("Se requiere interacción para audio"));
+            
+            setTimeout(() => { document.getElementById('white-flash').style.opacity = '1'; }, 800);
 
-            // Flash blanco
             setTimeout(() => {
-                document.getElementById('white-flash').style.opacity = '1';
-            }, 800);
-
-            // Transición a contenido principal
-            setTimeout(() => {
-                document.getElementById('book-screen').style.opacity = '0';
-                document.getElementById('book-screen').style.visibility = 'hidden';
+                const bookScreen = document.getElementById('book-screen');
+                bookScreen.style.opacity = '0';
+                setTimeout(() => bookScreen.style.display = 'none', 1500); // Remover del DOM visualmente
                 
                 document.getElementById('white-flash').style.opacity = '0';
                 
-                // Mostrar toda la información sin efectos de scroll que la oculten
-                document.getElementById('main-content').classList.add('visible');
+                const main = document.getElementById('main-content');
+                main.style.display = 'block';
+                // Trigger reflow
+                void main.offsetWidth; 
+                main.style.opacity = '1';
+
+                // Iniciar animaciones de fuegos artificiales al abrir
+                startFireworks();
             }, 1500);
         }
 
@@ -533,85 +389,132 @@
         const ctx = canvas.getContext('2d');
         let particles = [];
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
 
         function createSparkle() {
-            // Aparecen solo en el 15% de la izquierda o el 15% de la derecha de la pantalla
             let isLeft = Math.random() > 0.5;
             let xPos = isLeft ? (Math.random() * (canvas.width * 0.15)) : (canvas.width - Math.random() * (canvas.width * 0.15));
-            
             const colors = ['#D4AF37', '#F9E596', '#ffffff'];
-            
             return {
-                x: xPos,
-                y: -10,
+                x: xPos, y: -10,
                 size: Math.random() * 2.5 + 0.5,
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: Math.random() * 1.5 + 0.5, // Velocidad de caída
+                vx: (Math.random() - 0.5) * 0.4, vy: Math.random() * 1.5 + 0.8, 
                 color: colors[Math.floor(Math.random() * colors.length)],
                 alpha: Math.random()
             };
         }
 
-        // Crear 60 brillos que inician en toda la pantalla verticalmente
         for(let i=0; i<60; i++) {
-            let p = createSparkle();
-            p.y = Math.random() * canvas.height;
-            particles.push(p);
+            let p = createSparkle(); p.y = Math.random() * canvas.height; particles.push(p);
         }
 
         function animateSparkles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for(let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                p.alpha += (Math.random() - 0.5) * 0.05; 
-
-                if(p.alpha <= 0.2) p.alpha = 0.2;
-                if(p.alpha >= 1) p.alpha = 1;
-
-                // Si salen de la pantalla, vuelven a caer desde arriba
-                if(p.y > canvas.height) {
-                    Object.assign(p, createSparkle());
-                }
-
-                ctx.globalAlpha = p.alpha;
-                ctx.fillStyle = p.color;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy; p.alpha += (Math.random() - 0.5) * 0.05; 
+                if(p.alpha <= 0.2) p.alpha = 0.2; if(p.alpha >= 1) p.alpha = 1;
+                if(p.y > canvas.height) Object.assign(p, createSparkle());
+                ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+            });
             requestAnimationFrame(animateSparkles);
         }
         animateSparkles();
+
+        // --- SISTEMA DE FUEGOS ARTIFICIALES ---
+        function startFireworks() {
+            const fwCanvas = document.getElementById('fireworks-canvas');
+            const fwCtx = fwCanvas.getContext('2d');
+            let fwParticles = [];
+
+            function resizeFwCanvas() {
+                fwCanvas.width = fwCanvas.parentElement.offsetWidth;
+                fwCanvas.height = fwCanvas.parentElement.offsetHeight;
+            }
+            window.addEventListener('resize', resizeFwCanvas); resizeFwCanvas();
+
+            function createExplosion(x, y) {
+                const colors = ['#D4AF37', '#E8B4C8', '#ffffff', '#9E2A5B'];
+                for(let i=0; i<40; i++) {
+                    fwParticles.push({
+                        x: x, y: y,
+                        vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8,
+                        alpha: 1, size: Math.random() * 3 + 1,
+                        color: colors[Math.floor(Math.random() * colors.length)]
+                    });
+                }
+            }
+
+            setInterval(() => {
+                createExplosion(Math.random() * fwCanvas.width, Math.random() * (fwCanvas.height / 2));
+            }, 1500);
+
+            function animateFireworks() {
+                fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+                for(let i = fwParticles.length - 1; i >= 0; i--) {
+                    let p = fwParticles[i];
+                    p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.alpha -= 0.015;
+                    if(p.alpha <= 0) { fwParticles.splice(i, 1); continue; }
+                    fwCtx.globalAlpha = p.alpha; fwCtx.fillStyle = p.color;
+                    fwCtx.beginPath(); fwCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2); fwCtx.fill();
+                }
+                requestAnimationFrame(animateFireworks);
+            }
+            animateFireworks();
+        }
+
+        // --- SCROLL REVEAL (Aparición de elementos) ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('active'); }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- MURO DE LOS DESEOS (Local Storage) ---
+        const wishesForm = document.getElementById('wishes-form');
+        const wishesList = document.getElementById('wishes-list');
+
+        function loadWishes() {
+            const wishes = JSON.parse(localStorage.getItem('bautizoWishes')) || [];
+            wishesList.innerHTML = wishes.map(w => `
+                <div class="wish-card">
+                    <h4 style="font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.1rem; font-weight: 700;">${w.name}</h4>
+                    <p style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; margin: 8px 0; color: var(--color-text-dark);">"${w.msg}"</p>
+                    <small style="color: #888; font-family: 'Montserrat', sans-serif; font-size: 0.8rem;">${w.date}</small>
+                </div>
+            `).join('');
+        }
+        loadWishes();
+
+        wishesForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('w-name').value;
+            const msg = document.getElementById('w-msg').value;
+            const wishes = JSON.parse(localStorage.getItem('bautizoWishes')) || [];
+            wishes.unshift({ name, msg, date: new Date().toLocaleDateString() });
+            localStorage.setItem('bautizoWishes', JSON.stringify(wishes));
+            loadWishes();
+            wishesForm.reset();
+        });
 
         // --- FORMULARIO RSVP ---
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
-            btn.innerText = "Enviando...";
-            btn.disabled = true;
+            btn.innerText = "Enviando..."; btn.disabled = true;
 
-            // ENLACE REAL DE GOOGLE SHEETS
             const scriptURL = "https://script.google.com/macros/s/AKfycbzy2Fxh6VuORILF415IVLDknnNcopEIT2oNIPfhKNnMZvO0pkuHqtkwuw3jWKcjuelG/exec"; 
             const formData = new FormData(this);
 
-            fetch(scriptURL, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            }).then(() => {
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(() => {
                 this.style.display = 'none';
                 document.getElementById('rsvp-msg').style.display = 'block';
             }).catch(error => {
-                btn.innerText = "Error - Reintentar";
-                btn.disabled = false;
+                btn.innerText = "Error - Reintentar"; btn.disabled = false;
             });
         });
     </script>
