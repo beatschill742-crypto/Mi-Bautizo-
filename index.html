@@ -332,21 +332,73 @@
         }
         .btn-luxury:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 25px 50px rgba(230,184,101,0.8); }
 
-        /* Galería Fotográfica (Diseño Masonry Elegante) */
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 45px; padding: 10px; }
-        .gallery-item {
-            border-radius: 15px; overflow: hidden; border: 3px solid var(--color-gold);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative;
-            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1), box-shadow 0.4s ease;
+        /* Galería Fotográfica (Diseño Collage Asimétrico y Lightbox) */
+        .collage-grid { 
+            display: grid; 
+            grid-template-columns: repeat(12, 1fr); 
+            grid-auto-rows: 200px; 
+            gap: 15px; 
+            margin-top: 30px; 
         }
-        .gallery-item::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 30px rgba(0,0,0,0.4); pointer-events: none; }
-        .gallery-item:hover { transform: scale(1.05); box-shadow: 0 30px 60px rgba(255, 42, 133, 0.4); border-color: var(--color-gold-light); z-index: 5; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s ease; }
-        .gallery-item:hover img { transform: scale(1.1); }
-        .gallery-item:nth-child(2) { transform: translateY(40px); }
-        .gallery-item:nth-child(2):hover { transform: translateY(40px) scale(1.05); }
-        .gallery-item:nth-child(3) { transform: translateY(-40px); }
-        .gallery-item:nth-child(3):hover { transform: translateY(-40px) scale(1.05); }
+        
+        .collage-item {
+            border-radius: 15px; overflow: hidden; border: 2px solid var(--color-gold);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); position: relative; cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.25,1,0.5,1), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        
+        .collage-item:hover { 
+            transform: scale(1.03); 
+            box-shadow: 0 20px 50px rgba(255, 42, 133, 0.6); 
+            z-index: 5; 
+            border-color: var(--color-gold-light); 
+        }
+        
+        .collage-item img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: transform 0.8s ease; filter: contrast(1.1); 
+        }
+        
+        .collage-item:hover img { transform: scale(1.1); }
+        
+        /* Tamaños asimétricos para el mosaico */
+        .col-span-7 { grid-column: span 7; }
+        .col-span-5 { grid-column: span 5; }
+        
+        /* Efecto de texto flotante en la foto */
+        .collage-overlay {
+            position: absolute; inset: 0; 
+            background: linear-gradient(to top, rgba(61, 12, 36, 0.9) 0%, transparent 60%);
+            display: flex; align-items: flex-end; justify-content: center; 
+            padding: 20px; opacity: 0; transition: opacity 0.4s ease;
+        }
+        
+        .collage-item:hover .collage-overlay { opacity: 1; }
+        
+        .collage-overlay span {
+            font-family: 'Cinzel', serif; color: var(--color-gold-light); 
+            font-size: 1.2rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+            transform: translateY(20px); transition: transform 0.4s ease;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+        
+        .collage-item:hover .collage-overlay span { transform: translateY(0); }
+
+        /* Ventana Emergente (Lightbox) */
+        #lightbox-modal {
+            position: fixed; inset: 0; background: rgba(9, 2, 6, 0.95); z-index: 20000;
+            display: none; align-items: center; justify-content: center; padding: 20px;
+            backdrop-filter: blur(15px); opacity: 0; transition: opacity 0.4s ease;
+        }
+        
+        #lightbox-modal.active { display: flex; opacity: 1; }
+        
+        #lightbox-img {
+            max-width: 95%; max-height: 85vh; border-radius: 12px; border: 3px solid var(--color-gold-light);
+            box-shadow: 0 0 50px rgba(255, 42, 133, 0.5); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        
+        #lightbox-modal.active #lightbox-img { transform: scale(1); }
 
         /* Formularios */
         .form-input {
@@ -390,9 +442,9 @@
             .glass-panel { padding: 50px 25px; }
             .princess-portrait-container { width: 240px; height: 330px; }
             .scroll-phrase { font-size: 2.2rem; margin: 40px 0; }
-            .gallery-grid { grid-template-columns: 1fr; gap: 30px; padding: 0; }
-            .gallery-item:nth-child(2), .gallery-item:nth-child(3) { transform: none; }
-            .gallery-item:nth-child(2):hover, .gallery-item:nth-child(3):hover { transform: scale(1.05); }
+            /* En celulares, el collage se apila bonito */
+            .col-span-7, .col-span-5 { grid-column: span 12; }
+            .collage-grid { grid-auto-rows: 250px; }
         }
     </style>
 </head>
@@ -554,22 +606,30 @@
         <svg class="floral-divider reveal" viewBox="0 0 200 50"><path d="M0 25 Q 50 50 100 25 T 200 25 M100 10 L100 40 M90 25 L110 25" stroke="#e6b865" stroke-width="2" fill="none"/></svg>
 
         <!-- SECCIÓN DE GALERÍA -->
-        <div class="glass-panel reveal">
+        <div class="glass-panel reveal" style="padding: 50px 25px;">
             <h3 class="role-title" style="font-size: 2.6rem; color: var(--color-magenta);">Dulces Recuerdos</h3>
-            <p style="font-family: 'Montserrat', sans-serif; font-size: 1.2rem; color: var(--color-text-dark); font-weight: 600;">Momentos mágicos e inolvidables</p>
+            <p style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--color-text-dark); font-weight: 600;">(Toca las fotos para abrir la magia)</p>
             
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="bautizo1.jpg" alt="Recuerdo Bautizo 1" onerror="this.src='https://placehold.co/400x500/3d0c24/e6b865?text=Foto+1'">
+            <div class="collage-grid">
+                <!-- Foto 1 (Ancha) -->
+                <div class="collage-item col-span-7" onclick="openLightbox('bautizo1.jpg')">
+                    <img src="bautizo1.jpg" alt="Recuerdo Bautizo 1" onerror="this.src='https://placehold.co/600x400/3d0c24/e6b865?text=Foto+1'">
+                    <div class="collage-overlay"><span>Pura Magia</span></div>
                 </div>
-                <div class="gallery-item">
-                    <img src="bautizo2.jpg" alt="Recuerdo Bautizo 2" onerror="this.src='https://placehold.co/400x550/3d0c24/e6b865?text=Foto+2'">
+                <!-- Foto 2 (Estrecha) -->
+                <div class="collage-item col-span-5" onclick="openLightbox('bautizo2.jpg')">
+                    <img src="bautizo2.jpg" alt="Recuerdo Bautizo 2" onerror="this.src='https://placehold.co/400x500/3d0c24/e6b865?text=Foto+2'">
+                    <div class="collage-overlay"><span>Sonrisas</span></div>
                 </div>
-                <div class="gallery-item">
-                    <img src="bautizo3.jpg" alt="Recuerdo Bautizo 3" onerror="this.src='https://placehold.co/400x550/3d0c24/e6b865?text=Foto+3'">
+                <!-- Foto 3 (Estrecha cruzada) -->
+                <div class="collage-item col-span-5" onclick="openLightbox('bautizo3.jpg')">
+                    <img src="bautizo3.jpg" alt="Recuerdo Bautizo 3" onerror="this.src='https://placehold.co/400x500/3d0c24/e6b865?text=Foto+3'">
+                    <div class="collage-overlay"><span>Inolvidable</span></div>
                 </div>
-                <div class="gallery-item">
-                    <img src="bautizo4.jpg" alt="Recuerdo Bautizo 4" onerror="this.src='https://placehold.co/400x500/3d0c24/e6b865?text=Foto+4'">
+                <!-- Foto 4 (Ancha) -->
+                <div class="collage-item col-span-7" onclick="openLightbox('bautizo4.jpg')">
+                    <img src="bautizo4.jpg" alt="Recuerdo Bautizo 4" onerror="this.src='https://placehold.co/600x400/3d0c24/e6b865?text=Foto+4'">
+                    <div class="collage-overlay"><span>Mi Cuento</span></div>
                 </div>
             </div>
         </div>
@@ -659,7 +719,27 @@
         </div>
     </div>
 
+    <!-- MODAL LIGHTBOX PARA LAS FOTOS -->
+    <div id="lightbox-modal" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Vista previa">
+    </div>
+
     <script>
+        // --- CONTROL DEL LIGHTBOX DE FOTOS ---
+        function openLightbox(src) {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            modal.style.display = 'flex';
+            setTimeout(() => { modal.classList.add('active'); }, 50);
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.remove('active');
+            setTimeout(() => { modal.style.display = 'none'; }, 400);
+        }
+
         // --- CONTROLES DESPLEGABLES ---
         function toggleWishes() {
             const container = document.getElementById('wishes-container');
