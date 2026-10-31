@@ -222,7 +222,7 @@
         .c-br { bottom: -2px; right: -2px; clip-path: polygon(100% 0, 100% 100%, 0 100%); border-bottom-right-radius: 15px; }
 
         .book-subtitle { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 6px; color: var(--color-gold-light); font-weight: 800; text-transform: uppercase; text-shadow: 0 4px 10px rgba(0,0,0,0.9); }
-        .book-title { font-family: 'Alex Brush', cursive; font-size: 5.5rem; color: #ffffff; line-height: 0.95; margin: 20px 0; text-shadow: 0 0 30px var(--color-magenta-glow), 0 5px 20px rgba(0,0,0,0.9); }
+        .book-title { font-family: 'Alex Brush', cursive; font-size: clamp(3.5rem, 12vw, 5.5rem); color: #ffffff; line-height: 0.95; margin: 20px 0; text-shadow: 0 0 30px var(--color-magenta-glow), 0 5px 20px rgba(0,0,0,0.9); }
         
         .click-to-open {
             font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 4px; color: var(--color-gold);
@@ -302,7 +302,7 @@
 
         /* Tipografías dentro del panel */
         .subtitle-elegant { font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 6px; color: var(--color-gold-dark); font-weight: 800; text-transform: uppercase; margin-bottom: 15px; }
-        .main-name { font-family: 'Alex Brush', cursive; font-size: 6.5rem; color: var(--color-magenta); margin: 10px 0; line-height: 0.8; text-shadow: 0 5px 25px rgba(255, 42, 133, 0.3); }
+        .main-name { font-family: 'Alex Brush', cursive; font-size: clamp(3.5rem, 12vw, 6.5rem); color: var(--color-magenta); margin: 10px 0; line-height: 0.8; text-shadow: 0 5px 25px rgba(255, 42, 133, 0.3); }
         .date-elegant {
             font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 800; color: var(--color-magenta);
             border-top: 3px double var(--color-gold); border-bottom: 3px double var(--color-gold);
@@ -435,10 +435,62 @@
         .music-btn:hover { transform: scale(1.15) rotate(10deg); box-shadow: 0 15px 40px rgba(255, 42, 133, 0.6); }
         .music-btn svg { fill: #fff; width: 35px; height: 35px; }
 
+        /* Animación 12 Princesas Bailando */
+        .princesses-box {
+            position: relative;
+            padding: 50px 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .dancing-princesses-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+        .dancing-princesses-track {
+            display: flex;
+            width: 2400px;
+            animation: scrollDance 15s linear infinite;
+        }
+        .dancing-princesses-track svg {
+            flex-shrink: 0;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6));
+        }
+        @keyframes scrollDance {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-1200px); }
+        }
+        .bobbing-dance {
+            animation: princessBob 2s ease-in-out infinite alternate;
+        }
+        @keyframes princessBob {
+            0% { transform: translateY(-5px) rotate(-1deg); }
+            100% { transform: translateY(5px) rotate(1deg); }
+        }
+        .glow-magic-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 150px;
+            background: radial-gradient(ellipse, rgba(255, 255, 255, 0.8) 0%, rgba(255, 42, 133, 0.4) 40%, transparent 70%);
+            box-shadow: 0 0 60px rgba(255, 42, 133, 0.6);
+            border-radius: 50%;
+            z-index: 1;
+            animation: pulseGlowCenter 2s infinite alternate;
+        }
+        @keyframes pulseGlowCenter {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
         @media (max-width: 600px) {
             .giant-castle { width: 250vw; left: 50%; margin-left: 0; }
-            .book-title { font-size: 4rem; }
-            .main-name { font-size: 4.2rem; }
             .glass-panel { padding: 50px 25px; }
             .princess-portrait-container { width: 240px; height: 330px; }
             .scroll-phrase { font-size: 2.2rem; margin: 40px 0; }
@@ -449,6 +501,26 @@
     </style>
 </head>
 <body>
+
+    <!-- Definición SVG de las Princesas Bailarinas -->
+    <svg style="display: none;">
+        <defs>
+            <g id="princess-dancer">
+                <!-- Tiara/Moño -->
+                <path d="M 47 12 Q 50 6 53 12 Z" fill="#e6b865"/>
+                <!-- Cabeza -->
+                <circle cx="50" cy="18" r="7" fill="#e6b865"/>
+                <!-- Vestido y Torso -->
+                <path d="M 49 26 C 45 40, 43 50, 48 55 C 30 75, 15 110, 20 125 C 40 135, 60 135, 80 125 C 85 110, 70 75, 52 55 C 57 50, 55 40, 51 26 Z" fill="#e6b865"/>
+                <!-- Brazos agarrados -->
+                <path d="M -5 32 Q 25 40 48 29" stroke="#e6b865" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M 105 32 Q 75 40 52 29" stroke="#e6b865" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <!-- Piernas de ballet -->
+                <path d="M 43 125 L 38 152 L 42 155" stroke="#e6b865" stroke-width="2" fill="none" stroke-linejoin="round"/>
+                <path d="M 57 125 L 62 152 L 58 155" stroke="#e6b865" stroke-width="2" fill="none" stroke-linejoin="round"/>
+            </g>
+        </defs>
+    </svg>
 
     <!-- FONDO CINEMATOGRÁFICO -->
     <div id="cinematic-background">
@@ -607,7 +679,7 @@
 
         <!-- SECCIÓN DE GALERÍA -->
         <div class="glass-panel reveal" style="padding: 50px 25px;">
-            <h3 class="role-title" style="font-size: 2.6rem; color: var(--color-magenta);">Dulces Recuerdos</h3>
+            <h3 class="role-title" style="font-size: clamp(1.8rem, 7vw, 2.6rem); color: var(--color-magenta);">Dulces Recuerdos</h3>
             <p style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--color-text-dark); font-weight: 600;">(Toca las fotos para abrir la magia)</p>
             
             <div class="collage-grid">
@@ -637,7 +709,7 @@
         <p class="scroll-phrase reveal">"Acompáñanos a escribir este nuevo capítulo..."</p>
 
         <div class="glass-panel reveal">
-            <h3 class="role-title" style="font-size: 3rem; color: var(--color-magenta); margin-bottom: 60px;">La Celebración</h3>
+            <h3 class="role-title" style="font-size: clamp(2rem, 8vw, 3rem); color: var(--color-magenta); margin-bottom: 60px;">La Celebración</h3>
             
             <div class="location-box">
                 <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L2 12h3v10h14V12h3L12 2zm0 3.5l5 5V20H7v-9.5l5-5zM11 6h2v3h3v2h-3v3h-2v-3H8V9h3V6z"/></svg>
@@ -657,7 +729,7 @@
         <!-- MURO DE LOS DESEOS (SISTEMA LOCAL) -->
         <div class="glass-panel reveal">
             <svg class="icon-svg" style="width: 100px; height: 100px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            <h3 class="role-title" style="font-size: 3rem; color: var(--color-magenta);">Muro de los Deseos</h3>
+            <h3 class="role-title" style="font-size: clamp(2rem, 8vw, 3rem); color: var(--color-magenta);">Muro de los Deseos</h3>
             <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 20px; font-size: 1.4rem; font-weight: 700;">Déjale un mensaje mágico a Victoria.</p>
             <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 40px; font-size: 1rem; color: #4a2c3a;">*Tus deseos se guardan localmente en tu dispositivo.</p>
             
@@ -682,6 +754,25 @@
 
         <p class="scroll-phrase reveal">"Y vivieron felices por siempre..."</p>
 
+        <!-- LAS 12 PRINCESAS BAILANDO -->
+        <div class="glass-panel reveal princesses-box" style="margin-bottom: 70px;">
+            <h3 class="role-title" style="font-size: clamp(1.8rem, 6vw, 2.5rem); color: var(--color-magenta); margin-bottom: 30px;">12 Princesas Mágicas</h3>
+            <div class="glow-magic-center"></div>
+            <div class="dancing-princesses-container bobbing-dance">
+                <div class="dancing-princesses-track">
+                    <!-- Primer bloque de 12 princesas -->
+                    <svg width="1200" height="160" viewBox="0 0 1200 160">
+                        <use href="#princess-dancer" x="0" y="0"/><use href="#princess-dancer" x="100" y="0"/><use href="#princess-dancer" x="200" y="0"/><use href="#princess-dancer" x="300" y="0"/><use href="#princess-dancer" x="400" y="0"/><use href="#princess-dancer" x="500" y="0"/><use href="#princess-dancer" x="600" y="0"/><use href="#princess-dancer" x="700" y="0"/><use href="#princess-dancer" x="800" y="0"/><use href="#princess-dancer" x="900" y="0"/><use href="#princess-dancer" x="1000" y="0"/><use href="#princess-dancer" x="1100" y="0"/>
+                    </svg>
+                    <!-- Segundo bloque de 12 princesas para lograr el efecto infinito -->
+                    <svg width="1200" height="160" viewBox="0 0 1200 160">
+                        <use href="#princess-dancer" x="0" y="0"/><use href="#princess-dancer" x="100" y="0"/><use href="#princess-dancer" x="200" y="0"/><use href="#princess-dancer" x="300" y="0"/><use href="#princess-dancer" x="400" y="0"/><use href="#princess-dancer" x="500" y="0"/><use href="#princess-dancer" x="600" y="0"/><use href="#princess-dancer" x="700" y="0"/><use href="#princess-dancer" x="800" y="0"/><use href="#princess-dancer" x="900" y="0"/><use href="#princess-dancer" x="1000" y="0"/><use href="#princess-dancer" x="1100" y="0"/>
+                    </svg>
+                </div>
+            </div>
+            <p style="font-family: 'Alex Brush', cursive; font-size: clamp(2rem, 7vw, 2.8rem); color: var(--color-gold-light); margin-top: 20px; position: relative; z-index: 5; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">Bailando juntas en este cuento sin fin...</p>
+        </div>
+
         <!-- SECCIÓN FINAL Y RSVP -->
         <div class="glass-panel reveal finale-section">
             <canvas id="fireworks-canvas"></canvas>
@@ -689,7 +780,7 @@
             <svg class="icon-svg" style="width: 100px; height: 100px;" viewBox="0 0 24 24">
                 <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
             </svg>
-            <h3 class="role-title" style="font-size: 3.5rem; color: var(--color-magenta);">Acompáñanos</h3>
+            <h3 class="role-title" style="font-size: clamp(2.2rem, 9vw, 3.5rem); color: var(--color-magenta);">Acompáñanos</h3>
             <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 40px; font-size: 1.5rem; font-weight: 700;">Confirma tu asistencia al gran baile.</p>
             
             <button class="btn-luxury" id="btn-toggle-rsvp" onclick="toggleRSVP()" style="position: relative; z-index: 10; width: 100%; font-size: 1.2rem;">
@@ -715,7 +806,7 @@
                     </button>
                 </form>
             </div>
-            <div id="rsvp-msg" style="display:none; margin-top: 60px; font-size: 3.5rem; color: var(--color-magenta-glow); line-height: 1.1; font-family: 'Alex Brush', cursive; text-shadow: 0 0 35px rgba(255,255,255,0.9); position: relative; z-index: 10;">¡Tu presencia hará este día aún más mágico!</div>
+            <div id="rsvp-msg" style="display:none; margin-top: 60px; font-size: clamp(2.2rem, 8vw, 3.5rem); color: var(--color-magenta-glow); line-height: 1.1; font-family: 'Alex Brush', cursive; text-shadow: 0 0 35px rgba(255,255,255,0.9); position: relative; z-index: 10;">¡Tu presencia hará este día aún más mágico!</div>
         </div>
     </div>
 
