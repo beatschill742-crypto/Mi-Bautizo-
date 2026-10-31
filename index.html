@@ -7,60 +7,173 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Nueva Tipografía Más Elegante y Cinematográfica -->
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Paleta Premium Barbie 12 Princesas */
-            --color-bg-deep: #1A0812; 
-            --color-pink-soft: #FDF0F4;
-            --color-pink-mid: #E8B4C8;
-            --color-magenta: #9E2A5B;
-            --color-magenta-glow: #d81b60;
-            --color-gold: #D4AF37;
-            --color-gold-light: #F9E596;
-            --color-text-dark: #331221;
+            --color-sky-top: #0a0410;
+            --color-sky-mid: #2c0b2e;
+            --color-sky-bot: #5d1c53;
+            --color-magenta: #c2185b;
+            --color-magenta-glow: #e91e63;
+            --color-gold: #d4af37;
+            --color-gold-light: #f9e596;
+            --color-glass: rgba(253, 240, 244, 0.85);
+            --color-text-dark: #2a0a18;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body, html {
             font-family: 'Playfair Display', serif;
-            background-color: var(--color-bg-deep);
+            background-color: var(--color-sky-top);
             color: var(--color-text-dark);
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* --- FONDOS CINEMATOGRÁFICOS --- */
-        .magical-bg {
-            position: fixed; inset: 0;
-            background: linear-gradient(180deg, #1A0812 0%, #4a1532 50%, #872450 100%);
-            z-index: 1; pointer-events: none;
+        /* =========================================
+           CASTILLO GIGANTE Y FONDO CINEMATOGRÁFICO
+           ========================================= */
+        #cinematic-background {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: linear-gradient(180deg, var(--color-sky-top) 0%, var(--color-sky-mid) 40%, var(--color-sky-bot) 100%);
         }
 
-        .castle-bg {
-            position: fixed; top: 10vh; left: 50%; transform: translateX(-50%);
-            width: 100vw; max-width: 600px; height: 50vh;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="%23F9E596" opacity="0.1"><path d="M100,20 L120,60 L150,60 L130,90 L140,130 L100,110 L60,130 L70,90 L50,60 L80,60 Z"/></svg>') no-repeat center center;
-            background-size: contain; z-index: 1; pointer-events: none;
-            animation: floatCastle 8s infinite alternate ease-in-out;
-            filter: blur(2px);
+        .stars-bg {
+            position: absolute; inset: 0;
+            background: radial-gradient(2px 2px at 40px 60px, #fff, rgba(0,0,0,0)),
+                        radial-gradient(2px 2px at 150px 120px, #f9e596, rgba(0,0,0,0)),
+                        radial-gradient(2px 2px at 90px 200px, #fff, rgba(0,0,0,0)),
+                        radial-gradient(3px 3px at 250px 80px, #ffb6c9, rgba(0,0,0,0));
+            background-repeat: repeat; background-size: 300px 300px;
+            animation: twinkle 4s infinite alternate;
+            opacity: 0.7;
         }
 
-        @keyframes floatCastle {
-            0% { transform: translateX(-50%) translateY(0); }
-            100% { transform: translateX(-50%) translateY(-20px); }
+        @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 0.9; } }
+
+        /* EL GRAN CASTILLO DE DISNEY (Convertido a DOM para animación) */
+        .giant-castle {
+            position: absolute;
+            bottom: 5vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150vw; /* Más grande en celular */
+            min-width: 900px;
+            max-width: 1500px;
+            height: 85vh;
+            z-index: 2;
+            animation: pulseCastleGlow 6s infinite alternate;
         }
 
-        #lateral-sparkles { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+        .giant-castle svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 40px rgba(216, 27, 96, 0.5));
+        }
 
-        /* --- LIBRO 3D MÁGICO --- */
+        /* Animación de la princesa asomándose en el castillo */
+        .princess-silhouette {
+            transform-origin: center bottom;
+            animation: peekPrincess 12s infinite ease-in-out;
+        }
+
+        @keyframes peekPrincess {
+            0%, 15%, 100% { transform: translateX(10px) scale(0.9); opacity: 0; }
+            25%, 85% { transform: translateX(0) scale(1); opacity: 1; }
+        }
+
+        /* Animación de luces parpadeantes en el castillo */
+        .twinkle-light {
+            animation: twinkleLight 3s infinite alternate;
+        }
+        .twinkle-light:nth-child(even) {
+            animation-duration: 4s;
+            animation-direction: alternate-reverse;
+        }
+
+        @keyframes twinkleLight {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes pulseCastleGlow {
+            0% { filter: drop-shadow(0 0 40px rgba(216, 27, 96, 0.3)); transform: translateX(-50%) translateY(0); }
+            100% { filter: drop-shadow(0 0 80px rgba(233, 30, 99, 0.6)); transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Olas del lago debajo del castillo */
+        .lake {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 15vh;
+            background: linear-gradient(to top, #1a0512, transparent); z-index: 3;
+        }
+
+        /* Frases Mágicas Flotantes Interactivas */
+        .magic-quote {
+            position: absolute;
+            font-family: 'Alex Brush', cursive;
+            color: var(--color-gold-light);
+            font-size: 1.8rem;
+            text-shadow: 0 0 15px rgba(233, 30, 99, 0.8);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 25;
+            white-space: nowrap;
+        }
+
+        .mq-1 { top: 15%; left: 5%; animation: floatQuote 8s infinite 2s; }
+        .mq-2 { top: 45%; right: 5%; animation: floatQuote 9s infinite 5s; }
+        .mq-3 { top: 75%; left: 10%; animation: floatQuote 10s infinite 1s; }
+
+        @keyframes floatQuote {
+            0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+            20% { opacity: 0.8; transform: translateY(0) scale(1); }
+            80% { opacity: 0.8; transform: translateY(-20px) scale(1); }
+            100% { opacity: 0; transform: translateY(-40px) scale(0.9); }
+        }
+
+        /* =========================================
+           SISTEMAS DE PARTÍCULAS (POLVO Y ROSAS)
+           ========================================= */
+        #magic-particles-canvas {
+            position: fixed; inset: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 10;
+        }
+        #roses-container {
+            position: fixed; inset: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 11; overflow: hidden;
+        }
+
+        .rose-petal {
+            position: absolute; top: -10vh;
+            width: 20px; height: 25px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 60"><path d="M 25 60 C 10 50, 0 35, 5 20 C 10 5, 30 0, 40 10 C 50 20, 50 40, 25 60 Z" fill="%23e91e63" opacity="0.85"/><path d="M 25 60 C 15 50, 10 35, 15 20 C 20 5, 35 5, 40 10 C 45 20, 40 40, 25 60 Z" fill="%23f48fb1" opacity="0.9"/></svg>') no-repeat center;
+            background-size: contain;
+            animation: fallRose linear infinite;
+        }
+
+        @keyframes fallRose {
+            0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            50% { transform: translateY(55vh) rotate(180deg) translateX(50px); }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(-50px); opacity: 0; }
+        }
+
+        /* =========================================
+           PORTADA DEL LIBRO CON PAISAJE
+           ========================================= */
         #book-screen {
-            position: fixed; inset: 0;
-            background: radial-gradient(circle, #4a1532, #1A0812);
+            position: fixed; inset: 0; z-index: 9999;
             display: flex; justify-content: center; align-items: center;
-            z-index: 9999; perspective: 2500px;
+            background: radial-gradient(circle, rgba(44, 11, 46, 0.9), rgba(10, 4, 16, 0.98));
+            backdrop-filter: blur(10px);
+            perspective: 2500px;
             transition: opacity 1.5s ease, visibility 1.5s ease;
         }
 
@@ -70,147 +183,417 @@
         }
 
         .book {
-            width: 90vw; max-width: 380px; height: 75vh; max-height: 550px;
+            width: 90vw; max-width: 420px; height: 75vh; max-height: 600px;
             position: relative; transform-style: preserve-3d;
             transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1);
-            box-shadow: 0 0 60px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.6);
+        }
+
+        .book.open { transform: rotateY(-180deg) scale(1.1); opacity: 0; transition: transform 2.5s ease, opacity 1s ease 1s; }
+
+        .book-pages {
+            position: absolute; width: 95%; height: 96%; top: 2%; left: 2%;
+            background: #ffffff; border-radius: 0 15px 15px 0;
+            box-shadow: inset -10px 0 30px rgba(0,0,0,0.2); z-index: 1;
         }
 
         .book-cover {
             position: absolute; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #ffffff 0%, var(--color-pink-soft) 100%);
-            border: 10px solid var(--color-gold); border-radius: 4px 18px 18px 4px;
+            /* PAISAJE INTEGRADO EN LA PORTADA */
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600"><defs><radialGradient id="moon" cx="50%" cy="30%" r="50%"><stop offset="0%" stop-color="%23ffffff"/><stop offset="40%" stop-color="%23f9e596"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><rect width="400" height="600" fill="%232c0b2e"/><circle cx="200" cy="180" r="100" fill="url(%23moon)" opacity="0.8"/><path d="M0 500 Q 100 400 200 480 T 400 450 L 400 600 L 0 600 Z" fill="%235d1c53"/><path d="M0 550 Q 150 480 250 550 T 400 520 L 400 600 L 0 600 Z" fill="%231a0512"/></svg>') center/cover,
+                linear-gradient(135deg, #4a1532, #1a0512);
+            border: 12px solid var(--color-gold); border-radius: 4px 20px 20px 4px;
             transform-origin: left center; transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             padding: 25px; cursor: pointer; z-index: 3;
-            box-shadow: inset 0 0 40px rgba(158, 42, 91, 0.3);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+            overflow: hidden;
         }
 
-        .book.open .book-cover { transform: rotateY(-160deg) scale(1.1); opacity: 0; transition: transform 2.5s ease, opacity 1s ease 1s; }
-
-        .book-pages {
-            position: absolute; width: 95%; height: 96%; top: 2%; left: 2%;
-            background: #ffffff; border-radius: 0 12px 12px 0;
-            box-shadow: inset -10px 0 20px rgba(0,0,0,0.15); z-index: 1;
-            display: flex; justify-content: center; align-items: center;
+        /* Marco dorado floral para el texto del libro */
+        .cover-frame {
+            position: relative;
+            border: 2px solid var(--color-gold);
+            border-radius: 15px;
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: rgba(44, 11, 46, 0.4);
+            backdrop-filter: blur(4px);
+            padding: 20px; text-align: center;
         }
 
-        .cover-border {
-            border: 2px dashed var(--color-gold); width: 100%; height: 100%; border-radius: 10px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        .cover-frame::before, .cover-frame::after {
+            content: ''; position: absolute; width: 80px; height: 80px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23d4af37"><path d="M50 0 C 60 40, 90 40, 100 50 C 90 60, 60 60, 50 100 C 40 60, 10 60, 0 50 C 10 40, 40 40, 50 0 Z"/></svg>') no-repeat center;
+        }
+        .cover-frame::before { top: -20px; left: -20px; }
+        .cover-frame::after { bottom: -20px; right: -20px; }
+
+        .book-subtitle {
+            font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 6px;
+            color: var(--color-gold-light); font-weight: 700; text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
         .book-title {
-            font-family: 'Great Vibes', cursive; font-size: 4.8rem;
-            color: var(--color-magenta); line-height: 0.9; margin: 15px 0;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            font-family: 'Alex Brush', cursive; font-size: 5.5rem;
+            color: #ffffff; line-height: 0.95; margin: 20px 0;
+            text-shadow: 0 0 20px var(--color-magenta-glow), 0 5px 15px rgba(0,0,0,0.9);
         }
 
-        /* --- CONTENIDO PRINCIPAL --- */
+        .click-to-open {
+            font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 4px;
+            color: var(--color-gold); margin-top: 30px; font-weight: 700;
+            background: rgba(0,0,0,0.5); padding: 8px 20px; border-radius: 20px;
+            animation: pulseText 2s infinite alternate;
+        }
+
+        @keyframes pulseText { 0% { opacity: 0.5; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1.05); } }
+
+        /* =========================================
+           CONTENIDO PRINCIPAL
+           ========================================= */
         #main-content {
-            position: relative; z-index: 20; max-width: 750px; margin: 0 auto;
-            padding: 20px 20px 80px; display: none; opacity: 0;
-            animation: fadeInContent 2s ease 0.5s forwards;
+            position: relative; z-index: 20; max-width: 800px; margin: 0 auto;
+            padding: 40px 20px 100px; display: none; opacity: 0;
+            animation: fadeInContent 2.5s ease 0.5s forwards;
         }
 
         @keyframes fadeInContent { to { opacity: 1; } }
 
-        /* Scroll Reveal Effect */
-        .reveal { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Princesa Animada Vectorial */
-        .princess-animation {
-            width: 160px; height: 220px; margin: 0 auto 30px;
-            animation: dancingPrincess 6s infinite ease-in-out;
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8));
+        /* EL ESPEJO MÁGICO DE LA PRINCESA */
+        .princess-portrait-container {
+            margin: 0 auto 30px;
+            width: 280px; height: 380px;
+            position: relative;
+            animation: floatPortrait 6s infinite alternate ease-in-out;
         }
 
-        @keyframes dancingPrincess {
-            0% { transform: translateY(0) rotateY(0deg); }
-            50% { transform: translateY(-15px) rotateY(180deg); }
-            100% { transform: translateY(0) rotateY(360deg); }
+        @keyframes floatPortrait {
+            0% { transform: translateY(0); filter: drop-shadow(0 15px 25px rgba(212, 175, 55, 0.5)); }
+            100% { transform: translateY(-15px); filter: drop-shadow(0 30px 45px rgba(233, 30, 99, 0.6)); }
         }
 
-        /* Paneles de Cristal */
+        .princess-frame {
+            position: absolute; inset: 0;
+            border: 15px solid transparent; /* El borde visual lo da la sombra y el SVG */
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; 
+            background: linear-gradient(135deg, var(--color-gold), #aa8620, var(--color-gold-light));
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8), 0 0 30px rgba(212,175,55,0.6);
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .princess-frame img {
+            width: 95%; height: 95%; object-fit: cover;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            border: 4px solid #fff;
+        }
+
+        /* Adornos del marco de la princesa */
+        .princess-portrait-container::before {
+            content: ''; position: absolute; top: -45px; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 100px; z-index: 3;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23f9e596"><path d="M50 0 L65 35 L100 50 L65 65 L50 100 L35 65 L0 50 L35 35 Z"/></svg>') no-repeat center;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+        }
+
+        /* PANELES DE CRISTAL (SECCIONES) */
         .glass-panel {
-            background: rgba(253, 240, 244, 0.85); backdrop-filter: blur(15px);
-            border: 1px solid rgba(212, 175, 55, 0.6); border-radius: 25px;
-            padding: 50px 30px; margin-bottom: 50px; text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.5);
+            background: rgba(253, 240, 244, 0.9);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(212, 175, 55, 0.7);
+            border-radius: 30px;
+            padding: 60px 40px; margin-bottom: 60px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 0 30px rgba(255,255,255,0.8);
             position: relative; overflow: hidden;
         }
 
-        .glass-panel::before {
+        /* Reflejo de cristal */
+        .glass-panel::after {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(to bottom right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 100%);
-            transform: rotate(30deg); pointer-events: none; opacity: 0.4;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 100%);
+            transform: rotate(30deg); pointer-events: none; opacity: 0.5;
         }
 
-        .quote-elegant { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: var(--color-magenta); line-height: 1.6; font-weight: 600; }
+        /* Tipografías dentro del panel */
+        .quote-elegant { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; color: var(--color-magenta); line-height: 1.5; font-weight: 600; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .subtitle-elegant { font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 6px; color: var(--color-gold); font-weight: 700; text-transform: uppercase; margin-bottom: 15px; }
         
-        .main-name { font-family: 'Great Vibes', cursive; font-size: 4.5rem; color: var(--color-magenta-glow); margin: 15px 0; line-height: 1; text-shadow: 0 0 15px rgba(216, 27, 96, 0.2); }
+        .main-name { 
+            font-family: 'Alex Brush', cursive; font-size: 6rem; 
+            color: var(--color-magenta-glow); margin: 10px 0; line-height: 0.9; 
+            text-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); 
+        }
         
         .date-elegant {
-            font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700; color: var(--color-text-dark);
-            border-top: 2px solid var(--color-gold); border-bottom: 2px solid var(--color-gold);
-            padding: 20px 0; margin: 35px auto; width: 90%; letter-spacing: 4px;
+            font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: var(--color-magenta);
+            border-top: 3px double var(--color-gold); border-bottom: 3px double var(--color-gold);
+            padding: 25px 0; margin: 45px auto; width: 90%; letter-spacing: 5px;
         }
 
-        .role-title { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--color-gold); margin-bottom: 10px; letter-spacing: 3px; font-weight: 700; }
-        .name-text { font-family: 'Montserrat', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--color-text-dark); }
-        .connector-y { font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--color-gold); margin: -10px 0; line-height: 1; }
+        .role-title { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--color-gold); margin-bottom: 12px; letter-spacing: 4px; font-weight: 700; }
+        .name-text { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 600; color: var(--color-text-dark); }
+        .connector-y { font-family: 'Alex Brush', cursive; font-size: 3.5rem; color: var(--color-gold); margin: -10px 0; line-height: 1; }
 
+        /* Tarjetas de Ubicación Internas */
         .location-box {
-            border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 20px;
-            padding: 35px 20px; margin-bottom: 30px;
+            border: 2px solid rgba(212, 175, 55, 0.5); border-radius: 20px;
+            padding: 45px 30px; margin-bottom: 40px;
             background: linear-gradient(135deg, rgba(255,255,255,1), rgba(253, 240, 244, 0.9));
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            position: relative; z-index: 2;
         }
 
-        .icon-svg { width: 55px; height: 55px; fill: var(--color-gold); margin-bottom: 15px; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.15)); }
+        .icon-svg { width: 75px; height: 75px; fill: var(--color-gold); margin-bottom: 20px; filter: drop-shadow(0 5px 10px rgba(212,175,55,0.4)); }
+        .location-title { font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; }
+        .location-time { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 700; margin: 15px 0; color: var(--color-gold); letter-spacing: 2px; }
 
         .btn-luxury {
-            display: inline-block; background: linear-gradient(135deg, #E6C27A, #D4AF37, #b8860b);
-            color: #fff; text-decoration: none; padding: 15px 35px; border-radius: 40px;
+            display: inline-block; background: linear-gradient(135deg, #f9e596, #d4af37, #aa8620);
+            color: #fff; text-decoration: none; padding: 18px 45px; border-radius: 40px;
             font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 2px;
-            margin-top: 20px; box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); text-transform: uppercase;
-            font-size: 0.9rem; border: none; cursor: pointer; transition: all 0.3s;
+            margin-top: 25px; box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5); text-transform: uppercase;
+            font-size: 1.1rem; border: 2px solid #fff; cursor: pointer; transition: all 0.3s;
         }
-        .btn-luxury:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.6); }
+        .btn-luxury:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.8); }
 
+        /* Galería Fotográfica */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 35px;
+            padding: 10px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--color-gold);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.5);
+            border-color: var(--color-gold-light);
+            z-index: 5;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Efecto de desnivel para diseño mosaico (Masonry) */
+        .gallery-item:nth-child(2) { transform: translateY(30px); }
+        .gallery-item:nth-child(2):hover { transform: translateY(30px) scale(1.05); }
+        .gallery-item:nth-child(3) { transform: translateY(-30px); }
+        .gallery-item:nth-child(3):hover { transform: translateY(-30px) scale(1.05); }
+
+        /* Formularios */
         .form-input {
-            width: 100%; padding: 16px; border: 1px solid var(--color-gold); border-radius: 10px;
-            background: rgba(255,255,255,0.9); font-family: 'Montserrat', sans-serif; font-size: 1rem; color: var(--color-text-dark); margin-bottom: 20px;
+            width: 100%; padding: 20px; border: 2px solid rgba(212, 175, 55, 0.6); border-radius: 12px;
+            background: rgba(255,255,255,0.95); font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--color-text-dark); margin-bottom: 25px;
+            transition: all 0.3s;
         }
-        .form-input:focus { outline: none; border-color: var(--color-magenta); box-shadow: 0 0 15px rgba(194, 24, 91, 0.3); }
-        .form-label { display: block; text-align: left; font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--color-magenta); margin-bottom: 10px; letter-spacing: 2px; font-weight: 700; }
+        .form-input:focus { outline: none; border-color: var(--color-magenta); box-shadow: 0 0 25px rgba(194, 24, 91, 0.3); }
+        .form-label { display: block; text-align: left; font-family: 'Cinzel', serif; font-size: 1rem; color: var(--color-magenta); margin-bottom: 10px; letter-spacing: 2px; font-weight: 700; }
 
-        /* Muro de los Deseos */
+        /* Muro de los Deseos Local */
         .wish-card {
-            background: #fff; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px;
-            padding: 20px; margin-bottom: 15px; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: #fff; border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 15px;
+            padding: 30px; margin-bottom: 25px; text-align: left; box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            animation: slideIn 0.5s ease forwards;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* Contenedores Desplegables */
+        .collapsible-container {
+            display: none;
+            margin-top: 30px;
+            animation: slideDownFade 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
 
-        /* Escena Final de Fuegos Artificiales */
+        @keyframes slideDownFade {
+            0% { opacity: 0; transform: translateY(-20px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Gran Final */
         .finale-section { position: relative; background: transparent; border: none; box-shadow: none; overflow: visible; padding-bottom: 150px; }
+        .finale-section::after { display: none; }
         #fireworks-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
         /* Botón de Música */
         .music-btn {
-            position: fixed; bottom: 25px; right: 25px; background: var(--color-magenta);
-            width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            z-index: 1000; cursor: pointer; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 2px solid var(--color-gold);
+            position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, var(--color-magenta-glow), var(--color-magenta));
+            width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            z-index: 1000; cursor: pointer; box-shadow: 0 0 30px rgba(0,0,0,0.7); border: 3px solid var(--color-gold);
+            transition: transform 0.3s;
         }
-        .music-btn svg { fill: #fff; width: 26px; height: 26px; }
+        .music-btn:hover { transform: scale(1.1); }
+        .music-btn svg { fill: #fff; width: 35px; height: 35px; }
+
+        @media (max-width: 600px) {
+            .giant-castle { width: 250vw; left: 50%; margin-left: 0; } /* Ajuste del castillo en móvil */
+            .book-title { font-size: 4rem; }
+            .main-name { font-size: 4.5rem; }
+            .glass-panel { padding: 50px 25px; }
+            .princess-portrait-container { width: 240px; height: 330px; }
+            .magic-quote { font-size: 1.4rem; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 30px; padding: 0; }
+            .gallery-item:nth-child(2), .gallery-item:nth-child(3) { transform: none; }
+            .gallery-item:nth-child(2):hover, .gallery-item:nth-child(3):hover { transform: scale(1.03); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- FONDOS MAGIA -->
-    <div class="magical-bg"></div>
-    <div class="castle-bg"></div>
-    <canvas id="lateral-sparkles"></canvas>
+    <!-- ==========================================
+         FONDO CINEMATOGRÁFICO: EL CASTILLO Y LAGO
+         ========================================== -->
+    <div id="cinematic-background">
+        <div class="stars-bg"></div>
+        
+        <!-- EL GRAN CASTILLO INLINE (Para animar luces y a la princesa) -->
+        <div class="giant-castle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMax meet">
+                <defs>
+                    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#e8b4c8"/>
+                        <stop offset="100%" stop-color="#872450"/>
+                    </linearGradient>
+                    <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#60a5fa"/>
+                        <stop offset="100%" stop-color="#1e3a8a"/>
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <filter id="glowStrong">
+                        <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+                        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                </defs>
+                
+                <!-- Murallas y Bases -->
+                <rect x="100" y="500" width="800" height="300" fill="url(#wall)"/>
+                <rect x="250" y="400" width="500" height="200" fill="url(#wall)"/>
+                
+                <!-- Torres Laterales -->
+                <rect x="100" y="300" width="100" height="300" fill="url(#wall)"/>
+                <polygon points="90,300 150,150 210,300" fill="url(#roof)"/>
+                <rect x="800" y="300" width="100" height="300" fill="url(#wall)"/>
+                <polygon points="790,300 850,150 910,300" fill="url(#roof)"/>
+                
+                <!-- Torres Centrales Inferiores -->
+                <rect x="300" y="200" width="120" height="300" fill="url(#wall)"/>
+                <polygon points="280,200 360,50 440,200" fill="url(#roof)"/>
+                <rect x="580" y="200" width="120" height="300" fill="url(#wall)"/>
+                <polygon points="560,200 640,50 720,200" fill="url(#roof)"/>
+                
+                <!-- Gran Torre Central -->
+                <rect x="440" y="150" width="120" height="400" fill="url(#wall)"/>
+                <polygon points="420,150 500,0 580,150" fill="url(#roof)"/>
+                
+                <!-- Puerta Principal -->
+                <path d="M 400 800 L 400 650 C 400 550, 600 550, 600 650 L 600 800 Z" fill="#1a0512"/>
+                <path d="M 420 800 L 420 660 C 420 580, 580 580, 580 660 L 580 800 Z" fill="#d4af37" opacity="0.4"/>
+                
+                <!-- Ventanas Base -->
+                <circle cx="150" cy="400" r="15" fill="#1a0512"/>
+                <circle cx="850" cy="400" r="15" fill="#1a0512"/>
+                <path d="M 340 350 L 340 280 C 340 260, 380 260, 380 280 L 380 350 Z" fill="#1a0512"/>
+                <path d="M 620 350 L 620 280 C 620 260, 660 260, 660 280 L 660 350 Z" fill="#1a0512"/>
+                
+                <!-- EL GRAN BALCÓN CENTRAL CON LA PRINCESA ANIMADA -->
+                <g id="central-balcony">
+                    <!-- Fondo de luz de la ventana -->
+                    <path d="M 460 300 L 460 220 C 460 190, 540 190, 540 220 L 540 300 Z" fill="#f9e596" filter="url(#glowStrong)"/>
+                    
+                    <!-- SILUETA DE PRINCESA ASOMÁNDOSE Y SALUDANDO -->
+                    <g class="princess-silhouette">
+                        <!-- Cuerpo y Vestido -->
+                        <path d="M 475 300 C 480 270, 490 260, 500 260 C 510 260, 520 270, 525 300 Z" fill="#2c0b2e"/>
+                        <!-- Cuello y Cabeza -->
+                        <path d="M 495 262 C 495 250, 490 240, 500 240 C 510 240, 505 250, 505 262 Z" fill="#2c0b2e"/>
+                        <circle cx="500" cy="235" r="10" fill="#2c0b2e"/>
+                        <!-- Chongo de cabello -->
+                        <circle cx="510" cy="230" r="6" fill="#2c0b2e"/>
+                        <!-- Corona -->
+                        <path d="M 493 230 L 490 215 L 500 222 L 510 215 L 507 230 Z" fill="#d4af37" filter="url(#glow)"/>
+                        <!-- Brazo saludando -->
+                        <path d="M 480 275 C 470 260, 460 250, 465 240 C 470 245, 475 255, 485 270 Z" fill="#2c0b2e"/>
+                    </g>
+                    
+                    <!-- Barandal del Balcón -->
+                    <rect x="450" y="295" width="100" height="15" fill="#1a0512"/>
+                    <rect x="455" y="310" width="10" height="30" fill="#1a0512"/>
+                    <rect x="475" y="310" width="10" height="30" fill="#1a0512"/>
+                    <rect x="495" y="310" width="10" height="30" fill="#1a0512"/>
+                    <rect x="515" y="310" width="10" height="30" fill="#1a0512"/>
+                    <rect x="535" y="310" width="10" height="30" fill="#1a0512"/>
+                    <rect x="445" y="340" width="110" height="10" fill="#1a0512"/>
+                </g>
+
+                <!-- LUCES MÁGICAS TITILANTES POR TODO EL CASTILLO -->
+                <circle cx="150" cy="400" r="15" fill="#f9e596" class="twinkle-light" filter="url(#glow)"/>
+                <circle cx="850" cy="400" r="15" fill="#f9e596" class="twinkle-light" filter="url(#glow)"/>
+                <path d="M 340 350 L 340 280 C 340 260, 380 260, 380 280 L 380 350 Z" fill="#f9e596" class="twinkle-light" filter="url(#glow)"/>
+                <path d="M 620 350 L 620 280 C 620 260, 660 260, 660 280 L 660 350 Z" fill="#f9e596" class="twinkle-light" filter="url(#glow)"/>
+                
+                <!-- Banderas en las cimas -->
+                <polygon points="500,0 530,-10 500,-20" fill="#e91e63" class="twinkle-light"/>
+                <polygon points="150,150 180,140 150,130" fill="#e91e63" class="twinkle-light"/>
+                <polygon points="850,150 880,140 850,130" fill="#e91e63" class="twinkle-light"/>
+                <polygon points="360,50 390,40 360,30" fill="#e91e63" class="twinkle-light"/>
+                <polygon points="640,50 670,40 640,30" fill="#e91e63" class="twinkle-light"/>
+
+                <!-- Chispas extras flotando cerca de las torres -->
+                <circle cx="480" cy="50" r="4" fill="#fff" class="twinkle-light" filter="url(#glow)"/>
+                <circle cx="530" cy="80" r="3" fill="#f9e596" class="twinkle-light" filter="url(#glow)"/>
+                <circle cx="320" cy="120" r="5" fill="#ffb6c9" class="twinkle-light" filter="url(#glow)"/>
+                <circle cx="700" cy="90" r="4" fill="#fff" class="twinkle-light" filter="url(#glow)"/>
+                
+                <!-- Detalles de Lujo (Oro) -->
+                <polygon points="495,-30 505,-30 500,-50" fill="#d4af37"/>
+                <polygon points="355,20 365,20 360,0" fill="#d4af37"/>
+                <polygon points="635,20 645,20 640,0" fill="#d4af37"/>
+            </svg>
+        </div>
+        <div class="lake"></div>
+    </div>
+    
+    <!-- Lluvia de Rosas y Partículas Mágicas -->
+    <canvas id="magic-particles-canvas"></canvas>
+    <div id="roses-container"></div>
+
     <div id="white-flash"></div>
 
     <audio id="bg-music" loop preload="auto">
@@ -221,57 +604,115 @@
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </div>
 
-    <!-- LIBRO 3D MÁGICO -->
+    <!-- ==========================================
+         PANTALLA DE INICIO (LIBRO MÁGICO 3D)
+         ========================================== -->
     <div id="book-screen">
         <div class="book" id="magic-book">
             <div class="book-pages">
-                <div style="width: 85%; height: 85%; background: radial-gradient(circle, #fff, #fdf0f4); border-radius: 10px; box-shadow: 0 0 50px #fff; animation: pulseFlare 1.5s infinite alternate;"></div>
+                <!-- Portal de luz dentro de las páginas -->
+                <div style="width: 85%; height: 85%; background: radial-gradient(circle, #fff, #fdf0f4); border-radius: 10px; box-shadow: 0 0 80px #fff; animation: pulseGlow 1.5s infinite alternate;"></div>
             </div>
+            
             <div class="book-cover" onclick="openBook()">
-                <div class="cover-border">
-                    <p style="font-family: 'Cinzel', serif; color: var(--color-gold); font-size: 1.1rem; letter-spacing: 5px; font-weight: 700;">Mi Bautizo</p>
+                <div class="cover-frame">
+                    <p class="book-subtitle">Mi Bautizo</p>
                     <h1 class="book-title">Victoria<br>Guadalupe</h1>
-                    <svg class="icon-svg" style="width: 70px; height: 70px; margin: 20px 0;" viewBox="0 0 512 512">
-                        <path d="M496 160L384 272l-128-192L128 272 16 160l64 256h352z"/>
+                    
+                    <!-- Zapatillas de Ballet Vectoriales Elegantes -->
+                    <svg style="width: 140px; height: 160px; margin: 15px 0; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="shoePink" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fdf0f4"/>
+                                <stop offset="100%" stop-color="#f48fb1"/>
+                            </linearGradient>
+                            <linearGradient id="shoeMagenta" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#e91e63"/>
+                                <stop offset="100%" stop-color="#880e4f"/>
+                            </linearGradient>
+                            <linearGradient id="goldTrim" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#d4af37"/>
+                                <stop offset="50%" stop-color="#fff9c4"/>
+                                <stop offset="100%" stop-color="#d4af37"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Listones colgando -->
+                        <path d="M100 0 C 80 50, 60 80, 55 120" stroke="#fdf0f4" stroke-width="6" stroke-linecap="round" fill="none"/>
+                        <path d="M100 0 C 120 50, 140 80, 145 120" stroke="#fdf0f4" stroke-width="6" stroke-linecap="round" fill="none"/>
+                        
+                        <!-- Zapatilla Izquierda -->
+                        <g transform="translate(-5, 10) rotate(-10 75 140)">
+                            <path d="M50 80 C 40 100, 35 150, 55 190 C 70 215, 90 215, 100 190 C 115 150, 110 100, 100 80 C 85 50, 65 50, 50 80 Z" fill="url(#shoePink)"/>
+                            <path d="M60 85 C 55 100, 55 140, 75 150 C 90 140, 95 100, 90 85 C 80 70, 70 70, 60 85 Z" fill="#9e2a5b" opacity="0.8"/>
+                            <path d="M42 160 C 40 180, 55 210, 75 210 C 95 210, 108 180, 106 160 C 95 155, 55 155, 42 160 Z" fill="url(#shoeMagenta)"/>
+                            <path d="M40 160 Q 75 150 108 160" stroke="url(#goldTrim)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                            <path d="M60 145 C 45 130, 35 145, 50 155 Z" fill="#2e7d32"/>
+                            <path d="M85 145 C 100 130, 110 145, 95 155 Z" fill="#2e7d32"/>
+                            <circle cx="75" cy="148" r="16" fill="#c2185b"/>
+                            <path d="M65 148 C 65 135, 85 135, 85 148 C 85 160, 65 160, 65 148 Z" fill="#e91e63"/>
+                            <path d="M70 148 C 70 140, 80 140, 80 148 C 80 155, 70 155, 70 148 Z" fill="#f48fb1"/>
+                        </g>
+
+                        <!-- Zapatilla Derecha -->
+                        <g transform="translate(15, 15) rotate(10 125 140)">
+                            <path d="M50 80 C 40 100, 35 150, 55 190 C 70 215, 90 215, 100 190 C 115 150, 110 100, 100 80 C 85 50, 65 50, 50 80 Z" fill="url(#shoePink)"/>
+                            <path d="M60 85 C 55 100, 55 140, 75 150 C 90 140, 95 100, 90 85 C 80 70, 70 70, 60 85 Z" fill="#9e2a5b" opacity="0.8"/>
+                            <path d="M42 160 C 40 180, 55 210, 75 210 C 95 210, 108 180, 106 160 C 95 155, 55 155, 42 160 Z" fill="url(#shoeMagenta)"/>
+                            <path d="M40 160 Q 75 150 108 160" stroke="url(#goldTrim)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                            <path d="M60 145 C 45 130, 35 145, 50 155 Z" fill="#2e7d32"/>
+                            <path d="M85 145 C 100 130, 110 145, 95 155 Z" fill="#2e7d32"/>
+                            <circle cx="75" cy="148" r="16" fill="#c2185b"/>
+                            <path d="M65 148 C 65 135, 85 135, 85 148 C 85 160, 65 160, 65 148 Z" fill="#e91e63"/>
+                            <path d="M70 148 C 70 140, 80 140, 80 148 C 80 155, 70 155, 70 148 Z" fill="#f48fb1"/>
+                        </g>
                     </svg>
-                    <p style="font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; color: var(--color-gold); margin-top: 20px; animation: pulseFlare 2s infinite alternate;">TOCA PARA ENTRAR</p>
+
+                    <p class="click-to-open">TOCA PARA ABRIR LA MAGIA</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- ==========================================
+         CONTENIDO PRINCIPAL
+         ========================================== -->
     <div id="main-content">
+
+        <!-- Frases Mágicas Flotantes en el DOM -->
+        <div class="magic-quote mq-1">La magia está en los detalles...</div>
+        <div class="magic-quote mq-2">Donde los sueños se hacen realidad...</div>
+        <div class="magic-quote mq-3">Baila con el corazón...</div>
         
-        <!-- PRINCESA ANIMADA (SVG VECTORIAL ORO) -->
-        <div class="princess-animation reveal">
-            <svg viewBox="0 0 100 150" style="width: 100%; height: 100%; fill: var(--color-gold);">
-                <path d="M48,10 C48,6 52,6 52,10 C52,14 48,14 48,10 Z M46,16 C46,16 42,30 30,35 C28,36 30,40 32,38 C40,32 45,20 48,20 L52,20 C55,20 60,32 68,38 C70,40 72,36 70,35 C58,30 54,16 54,16 L46,16 Z M48,22 L52,22 L54,35 L46,35 Z M30,40 C30,40 20,90 40,95 L45,140 C45,145 50,145 50,140 L48,100 L52,100 L50,140 C50,145 55,145 55,140 L60,95 C80,90 70,40 70,40 C70,40 65,45 50,45 C35,45 30,40 30,40 Z"/>
-            </svg>
+        <!-- ESPEJO MÁGICO PARA LA FOTO DE LA PRINCESA -->
+        <div class="princess-portrait-container reveal">
+            <div class="princess-frame">
+                <!-- AQUÍ VA LA FOTO DE LA FESTEJADA. Si no está, no pasa nada, el marco se ve precioso -->
+                <img src="bautizo5.jpg" alt="Princesa" onerror="this.src='https://placehold.co/400x600/2c0b2e/d4af37?text=Foto+Bautizo+5'">
+            </div>
         </div>
 
-        <div class="glass-panel reveal" style="border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; padding: 70px 40px;">
+        <div class="glass-panel reveal" style="border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; padding: 80px 50px; margin-bottom: 80px;">
             <p class="quote-elegant">
-                "Había una vez una hermosa princesa bailarina que llegó para llenar de alegría nuestros corazones..."
+                "Había una vez una hermosa princesa bailarina que llegó para llenar de alegría nuestros corazones y hoy recibe la luz..."
             </p>
         </div>
 
         <div class="glass-panel reveal">
-            <p style="font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 6px; color: var(--color-gold); font-weight: 700; text-transform: uppercase;">Con la bendición de Dios</p>
+            <p class="subtitle-elegant">Con la bendición de Dios</p>
             <h1 class="main-name">Victoria Guadalupe</h1>
             
             <div class="date-elegant">
                 28 &nbsp;•&nbsp; NOVIEMBRE &nbsp;•&nbsp; 2026
             </div>
 
-            <div style="margin-top: 50px;">
+            <div style="margin-top: 60px;">
                 <h3 class="role-title">Mis Padres</h3>
                 <p class="name-text">Marlen Mercado González</p>
                 <p class="connector-y">y</p>
                 <p class="name-text">Víctor Iván Hernández</p>
             </div>
 
-            <div style="margin-top: 50px;">
+            <div style="margin-top: 60px;">
                 <h3 class="role-title">Mis Padrinos</h3>
                 <p class="name-text">Brenda Fernanda Hernández</p>
                 <p class="connector-y">y</p>
@@ -279,104 +720,173 @@
             </div>
         </div>
 
+        <!-- SECCIÓN DE GALERÍA (NUEVA) -->
         <div class="glass-panel reveal">
-            <h3 class="role-title" style="font-size: 2rem; color: var(--color-magenta); margin-bottom: 40px;">La Celebración</h3>
+            <h3 class="role-title" style="font-size: 2.2rem; color: var(--color-magenta);">Dulces Recuerdos</h3>
+            <p style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--color-text-dark); font-weight: 500;">Momentos mágicos e inolvidables</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="bautizo1.jpg" alt="Recuerdo Bautizo 1" onerror="this.src='https://placehold.co/400x500/2c0b2e/d4af37?text=Foto+1'">
+                </div>
+                <div class="gallery-item">
+                    <img src="bautizo2.jpg" alt="Recuerdo Bautizo 2" onerror="this.src='https://placehold.co/400x550/2c0b2e/d4af37?text=Foto+2'">
+                </div>
+                <div class="gallery-item">
+                    <img src="bautizo3.jpg" alt="Recuerdo Bautizo 3" onerror="this.src='https://placehold.co/400x550/2c0b2e/d4af37?text=Foto+3'">
+                </div>
+                <div class="gallery-item">
+                    <img src="bautizo4.jpg" alt="Recuerdo Bautizo 4" onerror="this.src='https://placehold.co/400x500/2c0b2e/d4af37?text=Foto+4'">
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel reveal">
+            <h3 class="role-title" style="font-size: 2.5rem; color: var(--color-magenta); margin-bottom: 50px;">La Celebración</h3>
             
             <!-- TARJETA MISA -->
             <div class="location-box">
+                <!-- Icono Iglesia SVG -->
                 <svg class="icon-svg" viewBox="0 0 24 24">
                     <path d="M12 2L2 12h3v10h14V12h3L12 2zm0 3.5l5 5V20H7v-9.5l5-5zM11 6h2v3h3v2h-3v3h-2v-3H8V9h3V6z"/>
                 </svg>
-                <h4 style="font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.5rem; font-weight: 700;">Misa</h4>
-                <p style="font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 700; margin: 15px 0; color: var(--color-gold);">11:30 A.M.</p>
-                <a href="https://maps.app.goo.gl/WBwBP4vnNVskumdq9?g_st=ic" target="_blank" class="btn-luxury">✨ Ver Ubicación ✨</a>
+                <h4 class="location-title">Misa</h4>
+                <p class="location-time">11:30 A.M.</p>
+                <a href="https://maps.app.goo.gl/WBwBP4vnNVskumdq9?g_st=ic" target="_blank" class="btn-luxury">VER UBICACIÓN</a>
             </div>
 
             <!-- TARJETA RECEPCIÓN -->
-            <div class="location-box" style="margin-top: 40px;">
+            <div class="location-box" style="margin-top: 50px;">
+                <!-- Icono Castillo SVG -->
                 <svg class="icon-svg" viewBox="0 0 24 24">
                     <path d="M21 9v4h-2V9h-2v4h-2V7l3-4 3 4h-2zm-10-2V3L8 1l-3 2v4H3v4H1V9l3-4 3 4H5v4h2V7l4-5 4 5v6h2V9l3-4 3 4h-2v4h-2V9h-2v4H9V7zm-2 6H5v9h14v-9h-4v3H9v-3z"/>
                 </svg>
-                <h4 style="font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.5rem; font-weight: 700;">Recepción</h4>
-                <p style="font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 700; margin: 15px 0; color: var(--color-gold);">3:30 P.M.</p>
-                <a href="https://maps.app.goo.gl/6HPQSBxFD7sHMcEQ8" target="_blank" class="btn-luxury">✨ Ver Ubicación ✨</a>
+                <h4 class="location-title">Recepción Real</h4>
+                <p class="location-time">3:30 P.M.</p>
+                <a href="https://maps.app.goo.gl/6HPQSBxFD7sHMcEQ8" target="_blank" class="btn-luxury">VER UBICACIÓN</a>
             </div>
         </div>
 
-        <!-- MURO DE LOS DESEOS (¡NUEVO!) -->
+        <!-- MURO DE LOS DESEOS (SISTEMA LOCAL CON BOTÓN DESPLEGABLE) -->
         <div class="glass-panel reveal">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <h3 class="role-title" style="font-size: 2rem; color: var(--color-magenta);">Muro de los Deseos</h3>
-            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 10px; font-size: 1.1rem; font-weight: 600;">Déjale un mensaje mágico a Victoria.</p>
-            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 30px; font-size: 0.8rem; color: #888;">*Los mensajes se guardan mágicamente en tu dispositivo local.</p>
+            <!-- Icono Corazón SVG -->
+            <svg class="icon-svg" style="width: 85px; height: 85px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <h3 class="role-title" style="font-size: 2.5rem; color: var(--color-magenta);">Muro de los Deseos</h3>
+            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 15px; font-size: 1.3rem; font-weight: 600;">Déjale un mensaje mágico a Victoria.</p>
+            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 25px; font-size: 0.95rem; color: #4a2c3a;">*Tus deseos se guardan localmente en tu dispositivo para que los conserves al regresar.</p>
             
-            <form id="wishes-form" style="text-align: left; margin-bottom: 30px;">
-                <input type="text" id="w-name" class="form-input" placeholder="Tu Nombre" required>
-                <textarea id="w-msg" class="form-input" rows="3" placeholder="Escribe tu deseo aquí..." required></textarea>
-                <button type="submit" class="btn-luxury" style="width: 100%;">Publicar Deseo</button>
-            </form>
+            <button class="btn-luxury" id="btn-toggle-wishes" onclick="toggleWishes()" style="width: 100%;">
+                ESCRIBIR UN DESEO
+            </button>
 
-            <div id="wishes-list" style="max-height: 350px; overflow-y: auto; padding-right: 10px;">
-                <!-- Los deseos aparecerán aquí -->
+            <div id="wishes-container" class="collapsible-container">
+                <form id="wishes-form" style="text-align: left; margin-bottom: 50px;">
+                    <label class="form-label">Tu Nombre</label>
+                    <input type="text" id="w-name" class="form-input" placeholder="Ej. Familia Rodríguez" required>
+                    
+                    <label class="form-label">Tu Mensaje</label>
+                    <textarea id="w-msg" class="form-input" rows="4" placeholder="Escribe tu deseo aquí..." required style="resize: none;"></textarea>
+                    
+                    <button type="submit" class="btn-luxury" style="width: 100%;">PUBLICAR DESEO</button>
+                </form>
+
+                <div id="wishes-list" style="max-height: 450px; overflow-y: auto; padding-right: 10px;">
+                    <!-- Los deseos aparecerán aquí dinámicamente -->
+                </div>
             </div>
         </div>
 
+        <!-- SECCIÓN FINAL Y RSVP (Con botón desplegable) -->
         <div class="glass-panel reveal finale-section">
             <canvas id="fireworks-canvas"></canvas>
-            <svg class="icon-svg" style="width: 65px; height: 65px;" viewBox="0 0 24 24">
+            
+            <!-- Icono Carta SVG -->
+            <svg class="icon-svg" style="width: 90px; height: 90px;" viewBox="0 0 24 24">
                 <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
             </svg>
-            <h3 class="role-title" style="font-size: 2rem; color: var(--color-magenta);">Acompáñanos</h3>
-            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 35px; font-size: 1.2rem; font-weight: 600;">Confirma tu asistencia al baile real.</p>
+            <h3 class="role-title" style="font-size: 3rem; color: var(--color-magenta);">Acompáñanos</h3>
+            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 30px; font-size: 1.4rem; font-weight: 600;">Confirma tu asistencia al gran baile.</p>
             
-            <form id="rsvp-form">
-                <div>
-                    <label class="form-label">Nombre Completo</label>
-                    <input type="text" name="Nombre" class="form-input" placeholder="Ej. Familia Rodríguez" required>
-                </div>
-                <div>
-                    <label class="form-label">¿Asistirás?</label>
-                    <select name="Asistencia" class="form-input" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="Sí asisto">Sí asisto</option>
-                        <option value="No asisto">No asisto</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-luxury" style="width: 100%;">
-                    Confirmar Asistencia
-                </button>
-            </form>
-            <div id="rsvp-msg" style="display:none; margin-top: 30px; font-size: 2.2rem; color: var(--color-magenta); line-height: 1.2; font-family: 'Great Vibes', cursive; text-shadow: 0 0 15px rgba(255,255,255,0.8);">¡Tu magia nos acompañará!</div>
+            <button class="btn-luxury" id="btn-toggle-rsvp" onclick="toggleRSVP()" style="position: relative; z-index: 10; width: 100%;">
+                CONFIRMAR ASISTENCIA
+            </button>
+
+            <div id="rsvp-container" class="collapsible-container" style="position: relative; z-index: 10;">
+                <form id="rsvp-form">
+                    <div>
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" name="Nombre" class="form-input" placeholder="Ej. Familia Rodríguez" required>
+                    </div>
+                    <div>
+                        <label class="form-label">¿Asistirás?</label>
+                        <select name="Asistencia" class="form-input" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="Sí asisto">Sí, ahí estaré</option>
+                            <option value="No asisto">No podré asistir</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-luxury" style="width: 100%; padding: 22px; font-size: 1.3rem;">
+                        ENVIAR RESPUESTA
+                    </button>
+                </form>
+            </div>
+            <div id="rsvp-msg" style="display:none; margin-top: 50px; font-size: 2.8rem; color: var(--color-magenta-glow); line-height: 1.1; font-family: 'Alex Brush', cursive; text-shadow: 0 0 25px rgba(255,255,255,0.9); position: relative; z-index: 10;">¡Tu presencia hará este día aún más mágico!</div>
         </div>
     </div>
 
+    <!-- ==========================================
+         SCRIPTS: MAGIA, ANIMACIONES Y CONEXIÓN
+         ========================================== -->
     <script>
-        // --- APERTURA Y AUDIO ---
+        // --- 0. CONTROLES DESPLEGABLES ---
+        function toggleWishes() {
+            const container = document.getElementById('wishes-container');
+            const btn = document.getElementById('btn-toggle-wishes');
+            if(container.style.display === 'none' || container.style.display === '') {
+                container.style.display = 'block';
+                btn.style.display = 'none';
+                setTimeout(() => container.scrollIntoView({behavior: 'smooth', block: 'center'}), 100);
+            }
+        }
+
+        function toggleRSVP() {
+            const container = document.getElementById('rsvp-container');
+            const btn = document.getElementById('btn-toggle-rsvp');
+            if(container.style.display === 'none' || container.style.display === '') {
+                container.style.display = 'block';
+                btn.style.display = 'none';
+                setTimeout(() => container.scrollIntoView({behavior: 'smooth', block: 'center'}), 100);
+            }
+        }
+
+        // --- 1. AUDIO Y APERTURA DE LIBRO ---
         const audio = document.getElementById('bg-music');
         let isMusicPlaying = false;
 
         function openBook() {
             document.getElementById('magic-book').classList.add('open');
-            audio.play().then(() => { isMusicPlaying = true; }).catch(e => console.log("Se requiere interacción para audio"));
+            audio.play().then(() => { isMusicPlaying = true; }).catch(e => console.log("Se requiere interacción para el audio"));
             
-            setTimeout(() => { document.getElementById('white-flash').style.opacity = '1'; }, 800);
+            setTimeout(() => { document.getElementById('white-flash').style.opacity = '1'; }, 900);
 
             setTimeout(() => {
                 const bookScreen = document.getElementById('book-screen');
                 bookScreen.style.opacity = '0';
-                setTimeout(() => bookScreen.style.display = 'none', 1500); // Remover del DOM visualmente
+                setTimeout(() => bookScreen.style.display = 'none', 1500); 
                 
                 document.getElementById('white-flash').style.opacity = '0';
                 
                 const main = document.getElementById('main-content');
                 main.style.display = 'block';
-                // Trigger reflow
                 void main.offsetWidth; 
                 main.style.opacity = '1';
 
-                // Iniciar animaciones de fuegos artificiales al abrir
                 startFireworks();
-            }, 1500);
+                revealElements();
+                
+                // Disparar las rosas al abrir la invitación
+                startFallingRoses();
+            }, 1600);
         }
 
         function toggleMusic() {
@@ -384,8 +894,8 @@
             else { audio.play(); isMusicPlaying = true; }
         }
 
-        // --- SISTEMA DE POLVO DE HADAS (Brillos Laterales) ---
-        const canvas = document.getElementById('lateral-sparkles');
+        // --- 2. POLVO DE HADAS LATERAL EN CANVAS ---
+        const canvas = document.getElementById('magic-particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
 
@@ -398,14 +908,14 @@
             const colors = ['#D4AF37', '#F9E596', '#ffffff'];
             return {
                 x: xPos, y: -10,
-                size: Math.random() * 2.5 + 0.5,
-                vx: (Math.random() - 0.5) * 0.4, vy: Math.random() * 1.5 + 0.8, 
+                size: Math.random() * 3 + 1,
+                vx: (Math.random() - 0.5) * 0.5, vy: Math.random() * 2 + 1, 
                 color: colors[Math.floor(Math.random() * colors.length)],
                 alpha: Math.random()
             };
         }
 
-        for(let i=0; i<60; i++) {
+        for(let i=0; i<80; i++) {
             let p = createSparkle(); p.y = Math.random() * canvas.height; particles.push(p);
         }
 
@@ -422,7 +932,36 @@
         }
         animateSparkles();
 
-        // --- SISTEMA DE FUEGOS ARTIFICIALES ---
+        // --- 3. LLUVIA DE ROSAS ANIMADAS (DOM) ---
+        function startFallingRoses() {
+            const container = document.getElementById('roses-container');
+            
+            function spawnRose() {
+                const rose = document.createElement('div');
+                rose.className = 'rose-petal';
+                rose.style.left = Math.random() * 100 + 'vw';
+                
+                // Variar el tiempo de caída y el tamaño
+                const duration = Math.random() * 8 + 7;
+                const scale = Math.random() * 0.5 + 0.8;
+                rose.style.animationDuration = duration + 's';
+                rose.style.transform = `scale(${scale})`;
+                
+                container.appendChild(rose);
+                
+                setTimeout(() => rose.remove(), duration * 1000);
+            }
+            
+            // Generar rosas iniciales
+            for(let i=0; i<15; i++) {
+                setTimeout(spawnRose, i * 500);
+            }
+            
+            // Ciclo continuo
+            setInterval(spawnRose, 800);
+        }
+
+        // --- 4. FUEGOS ARTIFICIALES (Gran Final) ---
         function startFireworks() {
             const fwCanvas = document.getElementById('fireworks-canvas');
             const fwCtx = fwCanvas.getContext('2d');
@@ -435,27 +974,36 @@
             window.addEventListener('resize', resizeFwCanvas); resizeFwCanvas();
 
             function createExplosion(x, y) {
-                const colors = ['#D4AF37', '#E8B4C8', '#ffffff', '#9E2A5B'];
-                for(let i=0; i<40; i++) {
+                const colors = ['#D4AF37', '#e91e63', '#ffffff', '#F9E596'];
+                for(let i=0; i<50; i++) {
                     fwParticles.push({
                         x: x, y: y,
-                        vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8,
-                        alpha: 1, size: Math.random() * 3 + 1,
+                        vx: (Math.random() - 0.5) * 12, vy: (Math.random() - 0.5) * 12,
+                        alpha: 1, size: Math.random() * 4 + 1,
                         color: colors[Math.floor(Math.random() * colors.length)]
                     });
                 }
             }
 
             setInterval(() => {
-                createExplosion(Math.random() * fwCanvas.width, Math.random() * (fwCanvas.height / 2));
-            }, 1500);
+                createExplosion(Math.random() * fwCanvas.width, Math.random() * (fwCanvas.height * 0.6));
+            }, 1800);
+
+            window.fireworkBurst = function() {
+                for(let j=0; j<4; j++) {
+                    setTimeout(() => {
+                        createExplosion(Math.random() * fwCanvas.width, Math.random() * (fwCanvas.height * 0.7));
+                    }, j * 300);
+                }
+            };
 
             function animateFireworks() {
                 fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
                 for(let i = fwParticles.length - 1; i >= 0; i--) {
                     let p = fwParticles[i];
-                    p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.alpha -= 0.015;
+                    p.x += p.vx; p.y += p.vy; p.vy += 0.08; p.alpha -= 0.015;
                     if(p.alpha <= 0) { fwParticles.splice(i, 1); continue; }
+                    
                     fwCtx.globalAlpha = p.alpha; fwCtx.fillStyle = p.color;
                     fwCtx.beginPath(); fwCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2); fwCtx.fill();
                 }
@@ -464,47 +1012,60 @@
             animateFireworks();
         }
 
-        // --- SCROLL REVEAL (Aparición de elementos) ---
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('active'); }
-            });
-        }, { threshold: 0.1 });
-        
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // --- 5. SCROLL REVEAL ---
+        function revealElements() {
+            let reveals = document.querySelectorAll('.reveal');
+            let windowHeight = window.innerHeight;
+            let elementVisible = 120;
 
-        // --- MURO DE LOS DESEOS (Local Storage) ---
+            for (let i = 0; i < reveals.length; i++) {
+                let elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        window.addEventListener('scroll', revealElements);
+
+
+        // --- 6. MURO DE LOS DESEOS (LocalStorage) ---
         const wishesForm = document.getElementById('wishes-form');
         const wishesList = document.getElementById('wishes-list');
 
         function loadWishes() {
-            const wishes = JSON.parse(localStorage.getItem('bautizoWishes')) || [];
+            const wishes = JSON.parse(localStorage.getItem('bautizoBarbieWishes')) || [];
             wishesList.innerHTML = wishes.map(w => `
                 <div class="wish-card">
-                    <h4 style="font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.1rem; font-weight: 700;">${w.name}</h4>
-                    <p style="font-family: 'Montserrat', sans-serif; font-size: 0.95rem; margin: 8px 0; color: var(--color-text-dark);">"${w.msg}"</p>
-                    <small style="color: #888; font-family: 'Montserrat', sans-serif; font-size: 0.8rem;">${w.date}</small>
+                    <h4 style="font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.3rem; font-weight: 700;">${w.name}</h4>
+                    <p style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; margin: 12px 0; color: var(--color-text-dark); line-height: 1.5;">"${w.msg}"</p>
+                    <small style="color: #888; font-family: 'Montserrat', sans-serif; font-size: 0.9rem;">${w.date}</small>
                 </div>
             `).join('');
         }
+        
         loadWishes();
 
         wishesForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('w-name').value;
             const msg = document.getElementById('w-msg').value;
-            const wishes = JSON.parse(localStorage.getItem('bautizoWishes')) || [];
+            
+            const wishes = JSON.parse(localStorage.getItem('bautizoBarbieWishes')) || [];
             wishes.unshift({ name, msg, date: new Date().toLocaleDateString() });
-            localStorage.setItem('bautizoWishes', JSON.stringify(wishes));
+            localStorage.setItem('bautizoBarbieWishes', JSON.stringify(wishes));
+            
             loadWishes();
             wishesForm.reset();
+            
+            if(window.fireworkBurst) window.fireworkBurst();
         });
 
-        // --- FORMULARIO RSVP ---
+
+        // --- 7. FORMULARIO RSVP ---
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
-            btn.innerText = "Enviando..."; btn.disabled = true;
+            btn.innerText = "ENVIANDO..."; btn.disabled = true;
 
             const scriptURL = "https://script.google.com/macros/s/AKfycbzy2Fxh6VuORILF415IVLDknnNcopEIT2oNIPfhKNnMZvO0pkuHqtkwuw3jWKcjuelG/exec"; 
             const formData = new FormData(this);
@@ -513,8 +1074,9 @@
             .then(() => {
                 this.style.display = 'none';
                 document.getElementById('rsvp-msg').style.display = 'block';
+                if(window.fireworkBurst) window.fireworkBurst();
             }).catch(error => {
-                btn.innerText = "Error - Reintentar"; btn.disabled = false;
+                btn.innerText = "REINTENTAR"; btn.disabled = false;
             });
         });
     </script>
