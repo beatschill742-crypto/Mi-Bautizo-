@@ -12,18 +12,18 @@
     
     <style>
         :root {
-            /* Paleta Pixar/Disney - Princesas Mágicas */
-            --color-void: #090206; 
-            --color-sky-top: #1a0512;
-            --color-sky-mid: #3d0c24;
-            --color-sky-bot: #661840;
-            --color-magenta: #b51c5b;
-            --color-magenta-glow: #ff2a85;
-            --color-gold: #e6b865;
-            --color-gold-dark: #8c6a2c;
-            --color-gold-light: #fff2cc;
-            --color-text-dark: #2a0a18;
-            --color-parchment: #fdf6f0;
+            /* Paleta TIERNA BAUTIZO - Rosas claritos y dorados */
+            --color-void: #fdf6f8; 
+            --color-sky-top: #ffe8f0;
+            --color-sky-mid: #fbd6e2;
+            --color-sky-bot: #f4b8cc;
+            --color-magenta: #a8486f;
+            --color-magenta-glow: #ff9ebe;
+            --color-gold: #d4af37;
+            --color-gold-dark: #b6922d;
+            --color-gold-light: #fff5d6;
+            --color-text-dark: #522d3b;
+            --color-parchment: #ffffff;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,38 +37,38 @@
         }
 
         /* =========================================
-           FONDO CINEMATOGRÁFICO Y LUZ VOLUMÉTRICA
+           FONDO CINEMATOGRÁFICO Y LUZ VOLUMÉTRICA (DE DÍA)
            ========================================= */
         #cinematic-background {
             position: fixed; inset: 0; z-index: 1; pointer-events: none;
             background: linear-gradient(180deg, var(--color-sky-top) 0%, var(--color-sky-mid) 50%, var(--color-sky-bot) 100%);
         }
 
-        /* Rayos de luz tipo God-Rays */
+        /* Rayos de luz angelicales */
         .god-rays {
             position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: repeating-conic-gradient(from 0deg at 50% -10%, transparent 0deg, rgba(255, 242, 204, 0.05) 5deg, transparent 10deg);
-            animation: rotateRays 60s linear infinite;
+            background: repeating-conic-gradient(from 0deg at 50% -10%, transparent 0deg, rgba(255, 255, 255, 0.4) 5deg, transparent 10deg);
+            animation: rotateRays 80s linear infinite;
             transform-origin: center top;
-            mix-blend-mode: screen;
+            mix-blend-mode: overlay;
         }
 
         @keyframes rotateRays { 0% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } 100% { transform: rotate(-10deg); } }
 
-        .stars-bg {
+        .magic-dust-bg {
             position: absolute; inset: 0;
-            background: radial-gradient(2px 2px at 40px 60px, #fff, rgba(0,0,0,0)),
+            background: radial-gradient(2px 2px at 40px 60px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
                         radial-gradient(2px 2px at 150px 120px, var(--color-gold-light), rgba(0,0,0,0)),
-                        radial-gradient(3px 3px at 250px 380px, #ffb6c9, rgba(0,0,0,0)),
-                        radial-gradient(2px 2px at 320px 80px, #fff, rgba(0,0,0,0));
-            background-repeat: repeat; background-size: 400px 400px;
+                        radial-gradient(3px 3px at 250px 380px, #ffffff, rgba(0,0,0,0)),
+                        radial-gradient(2px 2px at 320px 80px, rgba(255,255,255,0.6), rgba(0,0,0,0));
+            background-repeat: repeat; background-size: 300px 300px;
             animation: twinkle 4s infinite alternate ease-in-out;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
-        @keyframes twinkle { 0% { opacity: 0.2; transform: scale(1); } 100% { opacity: 1; transform: scale(1.05); } }
+        @keyframes twinkle { 0% { opacity: 0.3; transform: scale(1); } 100% { opacity: 1; transform: scale(1.05); } }
 
-        /* EL GRAN CASTILLO ESTILO PIXAR */
+        /* EL GRAN CASTILLO ESTILO TIERNO */
         .giant-castle {
             position: absolute; bottom: 5vh; left: 50%; transform: translateX(-50%);
             width: 150vw; min-width: 900px; max-width: 1600px; height: 85vh;
@@ -77,19 +77,19 @@
 
         .giant-castle svg {
             width: 100%; height: 100%;
-            filter: drop-shadow(0 -10px 40px rgba(255, 42, 133, 0.4)) drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+            filter: drop-shadow(0 -10px 40px rgba(255, 255, 255, 0.6)) drop-shadow(0 20px 30px rgba(244, 184, 204, 0.5));
         }
 
         @keyframes floatCastle {
-            0% { transform: translateX(-50%) translateY(0); filter: brightness(1); }
-            100% { transform: translateX(-50%) translateY(-10px); filter: brightness(1.1); }
+            0% { transform: translateX(-50%) translateY(0); filter: brightness(1) drop-shadow(0 20px 30px rgba(244, 184, 204, 0.4)); }
+            100% { transform: translateX(-50%) translateY(-10px); filter: brightness(1.05) drop-shadow(0 25px 40px rgba(255, 255, 255, 0.7)); }
         }
 
         .lake {
             position: absolute; bottom: 0; left: 0; width: 100%; height: 18vh;
-            background: linear-gradient(to top, var(--color-void), rgba(26, 5, 18, 0.8), transparent); 
-            z-index: 3; border-top: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 -20px 50px rgba(255, 42, 133, 0.2);
+            background: linear-gradient(to top, var(--color-void), rgba(255, 240, 245, 0.8), transparent); 
+            z-index: 3; border-top: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 -20px 50px rgba(255, 255, 255, 0.5);
         }
 
         /* =========================================
@@ -106,8 +106,8 @@
 
         .rose-petal {
             position: absolute; top: -10vh; width: 25px; height: 30px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 60"><path d="M 25 60 C 10 50, 0 35, 5 20 C 10 5, 30 0, 40 10 C 50 20, 50 40, 25 60 Z" fill="%23ff2a85" opacity="0.85"/><path d="M 25 60 C 15 50, 10 35, 15 20 C 20 5, 35 5, 40 10 C 45 20, 40 40, 25 60 Z" fill="%23f48fb1" opacity="0.9"/></svg>') no-repeat center;
-            background-size: contain; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 60"><path d="M 25 60 C 10 50, 0 35, 5 20 C 10 5, 30 0, 40 10 C 50 20, 50 40, 25 60 Z" fill="%23ffa6c9" opacity="0.85"/><path d="M 25 60 C 15 50, 10 35, 15 20 C 20 5, 35 5, 40 10 C 45 20, 40 40, 25 60 Z" fill="%23ffdbe5" opacity="0.9"/></svg>') no-repeat center;
+            background-size: contain; filter: drop-shadow(0 5px 10px rgba(244, 184, 204, 0.6));
             animation: fallRose linear infinite;
         }
 
@@ -125,7 +125,7 @@
         #book-screen {
             position: fixed; inset: 0; z-index: 9999;
             display: flex; justify-content: center; align-items: center;
-            background: radial-gradient(circle at center, rgba(61, 12, 36, 0.95), var(--color-void));
+            background: radial-gradient(circle at center, rgba(255, 232, 240, 0.95), var(--color-void));
             perspective: 2500px;
             transition: opacity 1.5s ease, visibility 1.5s ease;
         }
@@ -139,7 +139,7 @@
         .book-wrapper {
             position: relative;
             transform-style: preserve-3d;
-            transform: rotateX(15deg) rotateY(-15deg); /* Vista isométrica gruesa */
+            transform: rotateX(15deg) rotateY(-15deg); 
             transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 10;
         }
@@ -159,28 +159,28 @@
         .book-spine {
             position: absolute; left: -40px; top: 0; width: 40px; height: 100%;
             transform-origin: right center; transform: rotateY(-90deg);
-            background: linear-gradient(to right, #2a0512, #4a0c24, #2a0512);
+            background: linear-gradient(to right, #f4b8cc, #ffe1ec, #f4b8cc);
             border: 2px solid var(--color-gold-dark);
             border-radius: 8px 0 0 8px;
-            box-shadow: inset 5px 0 20px rgba(0,0,0,0.8);
+            box-shadow: inset 5px 0 20px rgba(220, 150, 180, 0.5);
             display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;
         }
 
         .spine-rib {
             width: 100%; height: 8px;
             background: linear-gradient(to bottom, var(--color-gold-dark), var(--color-gold), var(--color-gold-dark));
-            box-shadow: 0 3px 5px rgba(0,0,0,0.8);
+            box-shadow: 0 3px 5px rgba(200, 120, 150, 0.4);
         }
 
         /* Bloque de Hojas (Profundidad) */
         .book-pages-block {
             position: absolute; inset: 2% 0 2% 2%;
             transform: translateZ(-20px);
-            background: repeating-linear-gradient(to right, #fff 0px, var(--color-parchment) 2px, #e8b4c8 4px);
+            background: repeating-linear-gradient(to right, #fff 0px, var(--color-parchment) 2px, #fff0f5 4px);
             border-radius: 0 15px 15px 0;
             border: 1px solid var(--color-gold);
             border-left: none;
-            box-shadow: inset -10px 0 30px rgba(0,0,0,0.4), 20px 30px 50px rgba(0,0,0,0.8);
+            box-shadow: inset -10px 0 30px rgba(220,150,180,0.2), 20px 30px 50px rgba(200,100,140,0.3);
         }
 
         /* Portada Interactiva Animada */
@@ -195,42 +195,42 @@
 
         .cover-front {
             position: absolute; inset: 0; backface-visibility: hidden;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600"><rect width="400" height="600" fill="%232c0b2e"/><path d="M0 500 Q 100 400 200 480 T 400 450 L 400 600 L 0 600 Z" fill="%234a0c24"/><path d="M0 550 Q 150 480 250 550 T 400 520 L 400 600 L 0 600 Z" fill="%231a0512"/></svg>') center/cover, #2c0b2e;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600"><rect width="400" height="600" fill="%23ffdbe5"/><path d="M0 500 Q 100 400 200 480 T 400 450 L 400 600 L 0 600 Z" fill="%23fbd6e2"/><path d="M0 550 Q 150 480 250 550 T 400 520 L 400 600 L 0 600 Z" fill="%23f4b8cc"/></svg>') center/cover, #ffdbe5;
             border: 6px solid var(--color-gold-dark); border-radius: 0 15px 15px 0;
-            box-shadow: inset 0 0 60px rgba(0,0,0,0.9);
+            box-shadow: inset 0 0 60px rgba(255, 180, 205, 0.6);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             padding: 25px; transform: translateZ(1px);
         }
 
         .cover-back-inner {
             position: absolute; inset: 0; backface-visibility: hidden;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%23fdf6f0"/><circle cx="50" cy="50" r="40" fill="none" stroke="%23e6b865" stroke-width="1" opacity="0.3"/></svg>'), var(--color-parchment);
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%23ffffff"/><circle cx="50" cy="50" r="40" fill="none" stroke="%23e6b865" stroke-width="1" opacity="0.5"/></svg>'), var(--color-parchment);
             border: 4px solid var(--color-gold-dark); border-radius: 15px 0 0 15px;
             transform: rotateY(180deg) translateZ(1px);
-            box-shadow: inset 10px 0 30px rgba(0,0,0,0.5);
+            box-shadow: inset 10px 0 30px rgba(220,150,180,0.3);
         }
 
         /* Adornos 3D en las esquinas del libro */
         .corner-metal {
             position: absolute; width: 40px; height: 40px; z-index: 10;
             background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold-dark));
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 5px rgba(200, 120, 150, 0.4);
         }
         .c-tl { top: -2px; left: -2px; clip-path: polygon(0 0, 100% 0, 0 100%); border-top-left-radius: 4px; }
         .c-tr { top: -2px; right: -2px; clip-path: polygon(0 0, 100% 0, 100% 100%); border-top-right-radius: 15px; }
         .c-bl { bottom: -2px; left: -2px; clip-path: polygon(0 0, 0 100%, 100% 100%); border-bottom-left-radius: 4px; }
         .c-br { bottom: -2px; right: -2px; clip-path: polygon(100% 0, 100% 100%, 0 100%); border-bottom-right-radius: 15px; }
 
-        .book-subtitle { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 6px; color: var(--color-gold-light); font-weight: 800; text-transform: uppercase; text-shadow: 0 4px 10px rgba(0,0,0,0.9); }
-        .book-title { font-family: 'Alex Brush', cursive; font-size: clamp(3.5rem, 12vw, 5.5rem); color: #ffffff; line-height: 0.95; margin: 20px 0; text-shadow: 0 0 30px var(--color-magenta-glow), 0 5px 20px rgba(0,0,0,0.9); }
+        .book-subtitle { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 6px; color: var(--color-magenta); font-weight: 800; text-transform: uppercase; text-shadow: 0 2px 5px rgba(255,255,255,0.8); }
+        .book-title { font-family: 'Alex Brush', cursive; font-size: clamp(3.5rem, 12vw, 5.5rem); color: var(--color-magenta); line-height: 0.95; margin: 20px 0; text-shadow: 0 0 15px #fff, 0 2px 10px rgba(168, 72, 111, 0.4); }
         
         .click-to-open {
-            font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 4px; color: var(--color-gold);
-            margin-top: 30px; font-weight: 800; background: rgba(0,0,0,0.6); padding: 10px 25px;
-            border-radius: 25px; border: 1px solid var(--color-gold-dark);
-            animation: pulseText 2s infinite alternate; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 4px; color: var(--color-magenta);
+            margin-top: 30px; font-weight: 800; background: rgba(255,255,255,0.8); padding: 10px 25px;
+            border-radius: 25px; border: 1px solid var(--color-gold);
+            animation: pulseText 2s infinite alternate; box-shadow: 0 5px 15px rgba(255, 180, 205, 0.5);
         }
-        @keyframes pulseText { 0% { opacity: 0.7; transform: scale(0.95); box-shadow: 0 0 10px rgba(230,184,101,0.2); } 100% { opacity: 1; transform: scale(1.05); box-shadow: 0 0 25px rgba(230,184,101,0.6); } }
+        @keyframes pulseText { 0% { opacity: 0.8; transform: scale(0.95); box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); } 100% { opacity: 1; transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 255, 255, 1); } }
 
         /* =========================================
            CONTENIDO PRINCIPAL Y ANIMACIONES SCROLL
@@ -247,15 +247,15 @@
 
         /* Frases que aparecen al scrollear */
         .scroll-phrase {
-            font-family: 'Alex Brush', cursive; font-size: 2.8rem; color: var(--color-gold-light);
-            text-align: center; margin: 60px 0; text-shadow: 0 0 25px rgba(255, 42, 133, 0.8), 0 5px 10px rgba(0,0,0,0.8);
+            font-family: 'Alex Brush', cursive; font-size: 2.8rem; color: var(--color-magenta);
+            text-align: center; margin: 60px 0; text-shadow: 0 0 15px rgba(255,255,255,0.9), 0 2px 5px rgba(255, 180, 205, 0.5);
             line-height: 1.2;
         }
 
         /* Adorno Floral Vectorial */
         .floral-divider {
             width: 150px; height: 50px; margin: 30px auto; display: block;
-            fill: var(--color-gold); filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+            fill: var(--color-gold); filter: drop-shadow(0 2px 5px rgba(200, 120, 150, 0.3));
         }
 
         /* EL ESPEJO MÁGICO DE LA PRINCESA */
@@ -264,14 +264,14 @@
             animation: floatPortrait 6s infinite alternate ease-in-out;
         }
         @keyframes floatPortrait {
-            0% { transform: translateY(0); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); }
-            100% { transform: translateY(-15px); filter: drop-shadow(0 30px 50px rgba(255, 42, 133, 0.5)); }
+            0% { transform: translateY(0); filter: drop-shadow(0 20px 30px rgba(244, 184, 204, 0.5)); }
+            100% { transform: translateY(-15px); filter: drop-shadow(0 30px 50px rgba(255, 158, 190, 0.8)); }
         }
         .princess-frame {
             position: absolute; inset: 0;
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; 
-            background: linear-gradient(135deg, var(--color-gold), #aa8620, var(--color-gold-light));
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 0 0 30px rgba(230,184,101,0.5);
+            background: linear-gradient(135deg, var(--color-gold), #fff5d6, var(--color-gold-light));
+            box-shadow: inset 0 0 40px rgba(200,120,150,0.5), 0 0 30px rgba(255, 255, 255, 0.8);
             display: flex; justify-content: center; align-items: center; overflow: hidden; z-index: 2;
         }
         .princess-frame img {
@@ -282,27 +282,27 @@
             content: ''; position: absolute; top: -55px; left: 50%; transform: translateX(-50%);
             width: 120px; height: 120px; z-index: 3;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23e6b865"><path d="M50 10 L65 40 L100 50 L65 60 L50 90 L35 60 L0 50 L35 40 Z"/></svg>') no-repeat center;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.8));
+            filter: drop-shadow(0 5px 15px rgba(200,120,150,0.5));
         }
 
         /* PANELES DE CRISTAL ALTA CALIDAD */
         .glass-panel {
-            background: rgba(253, 240, 244, 0.85);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(230, 184, 101, 0.6); border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.9); border-radius: 30px;
             padding: 70px 40px; margin-bottom: 70px; text-align: center;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 0 40px rgba(255,255,255,0.7);
+            box-shadow: 0 20px 60px rgba(230, 150, 180, 0.2), inset 0 0 40px rgba(255,255,255,0.9);
             position: relative; overflow: hidden;
         }
         .glass-panel::after {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(to bottom right, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 100%);
-            transform: rotate(25deg); pointer-events: none; opacity: 0.6;
+            background: linear-gradient(to bottom right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 100%);
+            transform: rotate(25deg); pointer-events: none; opacity: 0.8;
         }
 
         /* Tipografías dentro del panel */
         .subtitle-elegant { font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 6px; color: var(--color-gold-dark); font-weight: 800; text-transform: uppercase; margin-bottom: 15px; }
-        .main-name { font-family: 'Alex Brush', cursive; font-size: clamp(3.5rem, 12vw, 6.5rem); color: var(--color-magenta); margin: 10px 0; line-height: 0.8; text-shadow: 0 5px 25px rgba(255, 42, 133, 0.3); }
+        .main-name { font-family: 'Alex Brush', cursive; font-size: clamp(3.5rem, 12vw, 6.5rem); color: var(--color-magenta); margin: 10px 0; line-height: 0.8; text-shadow: 0 5px 15px rgba(255, 255, 255, 0.8); }
         .date-elegant {
             font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 800; color: var(--color-magenta);
             border-top: 3px double var(--color-gold); border-bottom: 3px double var(--color-gold);
@@ -314,23 +314,23 @@
 
         /* Tarjetas de Ubicación Internas */
         .location-box {
-            border: 2px solid rgba(230, 184, 101, 0.5); border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.9); border-radius: 20px;
             padding: 50px 30px; margin-bottom: 40px;
-            background: linear-gradient(135deg, rgba(255,255,255,1), rgba(253, 240, 244, 0.9));
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2); position: relative; z-index: 2;
+            background: linear-gradient(135deg, rgba(255,255,255,1), rgba(255, 240, 245, 0.9));
+            box-shadow: 0 15px 30px rgba(230,150,180,0.15); position: relative; z-index: 2;
         }
-        .icon-svg { width: 80px; height: 80px; fill: var(--color-gold); margin-bottom: 20px; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.2)); }
+        .icon-svg { width: 80px; height: 80px; fill: var(--color-gold); margin-bottom: 20px; filter: drop-shadow(0 5px 10px rgba(230,184,101,0.3)); }
         .location-title { font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; }
         .location-time { font-family: 'Montserrat', sans-serif; font-size: 2.6rem; font-weight: 800; margin: 15px 0; color: var(--color-gold-dark); letter-spacing: 2px; }
 
         .btn-luxury {
-            display: inline-block; background: linear-gradient(135deg, #fff2cc, #e6b865, #8c6a2c);
-            color: #fff; text-decoration: none; padding: 20px 45px; border-radius: 40px;
+            display: inline-block; background: linear-gradient(135deg, #ffffff, #fff5d6, #e6b865);
+            color: var(--color-text-dark); text-decoration: none; padding: 20px 45px; border-radius: 40px;
             font-family: 'Cinzel', serif; font-weight: 800; letter-spacing: 3px;
-            margin-top: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); text-transform: uppercase;
+            margin-top: 25px; box-shadow: 0 10px 25px rgba(230,184,101,0.3); text-transform: uppercase;
             font-size: 1.1rem; border: 2px solid #fff; cursor: pointer; transition: all 0.3s;
         }
-        .btn-luxury:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 25px 50px rgba(230,184,101,0.8); }
+        .btn-luxury:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 15px 35px rgba(230,184,101,0.6); color: var(--color-magenta); }
 
         /* Galería Fotográfica (Diseño Collage Asimétrico y Lightbox) */
         .collage-grid { 
@@ -342,21 +342,21 @@
         }
         
         .collage-item {
-            border-radius: 15px; overflow: hidden; border: 2px solid var(--color-gold);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5); position: relative; cursor: pointer;
+            border-radius: 15px; overflow: hidden; border: 2px solid var(--color-gold-light);
+            box-shadow: 0 10px 25px rgba(230,150,180,0.3); position: relative; cursor: pointer;
             transition: transform 0.4s cubic-bezier(0.25,1,0.5,1), box-shadow 0.4s ease, border-color 0.4s ease;
         }
         
         .collage-item:hover { 
             transform: scale(1.03); 
-            box-shadow: 0 20px 50px rgba(255, 42, 133, 0.6); 
+            box-shadow: 0 15px 40px rgba(255, 158, 190, 0.6); 
             z-index: 5; 
-            border-color: var(--color-gold-light); 
+            border-color: var(--color-gold); 
         }
         
         .collage-item img { 
             width: 100%; height: 100%; object-fit: cover; 
-            transition: transform 0.8s ease; filter: contrast(1.1); 
+            transition: transform 0.8s ease; filter: contrast(1.05); 
         }
         
         .collage-item:hover img { transform: scale(1.1); }
@@ -368,7 +368,7 @@
         /* Efecto de texto flotante en la foto */
         .collage-overlay {
             position: absolute; inset: 0; 
-            background: linear-gradient(to top, rgba(61, 12, 36, 0.9) 0%, transparent 60%);
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, transparent 60%);
             display: flex; align-items: flex-end; justify-content: center; 
             padding: 20px; opacity: 0; transition: opacity 0.4s ease;
         }
@@ -376,17 +376,17 @@
         .collage-item:hover .collage-overlay { opacity: 1; }
         
         .collage-overlay span {
-            font-family: 'Cinzel', serif; color: var(--color-gold-light); 
-            font-size: 1.2rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+            font-family: 'Cinzel', serif; color: var(--color-magenta); 
+            font-size: 1.2rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase;
             transform: translateY(20px); transition: transform 0.4s ease;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            text-shadow: 0 0 10px rgba(255,255,255,0.9);
         }
         
         .collage-item:hover .collage-overlay span { transform: translateY(0); }
 
         /* Ventana Emergente (Lightbox) */
         #lightbox-modal {
-            position: fixed; inset: 0; background: rgba(9, 2, 6, 0.95); z-index: 20000;
+            position: fixed; inset: 0; background: rgba(255, 240, 245, 0.95); z-index: 20000;
             display: none; align-items: center; justify-content: center; padding: 20px;
             backdrop-filter: blur(15px); opacity: 0; transition: opacity 0.4s ease;
         }
@@ -394,8 +394,8 @@
         #lightbox-modal.active { display: flex; opacity: 1; }
         
         #lightbox-img {
-            max-width: 95%; max-height: 85vh; border-radius: 12px; border: 3px solid var(--color-gold-light);
-            box-shadow: 0 0 50px rgba(255, 42, 133, 0.5); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+            max-width: 95%; max-height: 85vh; border-radius: 12px; border: 4px solid #fff;
+            box-shadow: 0 15px 40px rgba(230,150,180,0.5); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
         }
         
         #lightbox-modal.active #lightbox-img { transform: scale(1); }
@@ -404,18 +404,18 @@
         .form-input {
             width: 100%; padding: 22px; border: 2px solid rgba(230, 184, 101, 0.6); border-radius: 12px;
             background: rgba(255,255,255,0.95); font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--color-text-dark); margin-bottom: 25px;
-            transition: all 0.3s; box-shadow: inset 0 5px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s; box-shadow: inset 0 5px 10px rgba(0,0,0,0.02);
         }
-        .form-input:focus { outline: none; border-color: var(--color-magenta); box-shadow: 0 0 30px rgba(255, 42, 133, 0.3); }
+        .form-input:focus { outline: none; border-color: var(--color-magenta); box-shadow: 0 0 20px rgba(255, 158, 190, 0.4); }
         .form-label { display: block; text-align: left; font-family: 'Cinzel', serif; font-size: 1rem; color: var(--color-magenta); margin-bottom: 10px; letter-spacing: 2px; font-weight: 800; }
 
         /* Muro de los Deseos Local */
         .wish-card {
-            background: #fff; border: 1px solid rgba(230, 184, 101, 0.5); border-radius: 15px;
-            padding: 35px; margin-bottom: 25px; text-align: left; box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            background: #fff; border: 1px solid rgba(230, 184, 101, 0.3); border-radius: 15px;
+            padding: 35px; margin-bottom: 25px; text-align: left; box-shadow: 0 10px 25px rgba(230,150,180,0.15);
             animation: slideIn 0.6s cubic-bezier(0.25,1,0.5,1) forwards; position: relative; overflow: hidden;
         }
-        .wish-card::before { content: '”'; font-family: serif; font-size: 8rem; color: rgba(255, 42, 133, 0.05); position: absolute; top: -30px; left: 10px; line-height: 1; }
+        .wish-card::before { content: '”'; font-family: serif; font-size: 8rem; color: rgba(255, 158, 190, 0.15); position: absolute; top: -30px; left: 10px; line-height: 1; }
         @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
 
         .collapsible-container { display: none; margin-top: 40px; animation: slideDownFade 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
@@ -427,13 +427,13 @@
         #fireworks-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
         .music-btn {
-            position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, var(--color-magenta-glow), var(--color-magenta));
+            position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, #ffffff, var(--color-magenta-glow));
             width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            z-index: 1000; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 3px solid var(--color-gold);
+            z-index: 1000; cursor: pointer; box-shadow: 0 10px 25px rgba(230,150,180,0.6); border: 3px solid #fff;
             transition: transform 0.3s cubic-bezier(0.25,1,0.5,1);
         }
-        .music-btn:hover { transform: scale(1.15) rotate(10deg); box-shadow: 0 15px 40px rgba(255, 42, 133, 0.6); }
-        .music-btn svg { fill: #fff; width: 35px; height: 35px; }
+        .music-btn:hover { transform: scale(1.15) rotate(10deg); box-shadow: 0 15px 35px rgba(255, 158, 190, 0.8); }
+        .music-btn svg { fill: var(--color-magenta); width: 35px; height: 35px; }
 
         /* Animación 12 Princesas Bailando */
         .princesses-box {
@@ -458,7 +458,7 @@
         }
         .dancing-princesses-track svg {
             flex-shrink: 0;
-            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6));
+            filter: drop-shadow(0 15px 15px rgba(244, 184, 204, 0.6));
         }
         @keyframes scrollDance {
             0% { transform: translateX(0); }
@@ -478,8 +478,8 @@
             transform: translate(-50%, -50%);
             width: 80%;
             height: 150px;
-            background: radial-gradient(ellipse, rgba(255, 255, 255, 0.8) 0%, rgba(255, 42, 133, 0.4) 40%, transparent 70%);
-            box-shadow: 0 0 60px rgba(255, 42, 133, 0.6);
+            background: radial-gradient(ellipse, rgba(255, 255, 255, 0.9) 0%, rgba(255, 190, 210, 0.5) 40%, transparent 70%);
+            box-shadow: 0 0 60px rgba(255, 190, 210, 0.8);
             border-radius: 50%;
             z-index: 1;
             animation: pulseGlowCenter 2s infinite alternate;
@@ -494,7 +494,6 @@
             .glass-panel { padding: 50px 25px; }
             .princess-portrait-container { width: 240px; height: 330px; }
             .scroll-phrase { font-size: 2.2rem; margin: 40px 0; }
-            /* En celulares, el collage se apila bonito */
             .col-span-7, .col-span-5 { grid-column: span 12; }
             .collage-grid { grid-auto-rows: 250px; }
         }
@@ -511,7 +510,7 @@
                 <!-- Cabeza -->
                 <circle cx="50" cy="18" r="7" fill="#e6b865"/>
                 <!-- Vestido y Torso -->
-                <path d="M 49 26 C 45 40, 43 50, 48 55 C 30 75, 15 110, 20 125 C 40 135, 60 135, 80 125 C 85 110, 70 75, 52 55 C 57 50, 55 40, 51 26 Z" fill="#e6b865"/>
+                <path d="M 49 26 C 45 40, 43 50, 48 55 C 30 75, 15 110, 20 125 C 40 135, 60 135, 80 125 C 85 110, 70 75, 52 55 C 57 50, 55 40, 51 26 Z" fill="#ffb6c9"/>
                 <!-- Brazos agarrados -->
                 <path d="M -5 32 Q 25 40 48 29" stroke="#e6b865" stroke-width="2.5" fill="none" stroke-linecap="round"/>
                 <path d="M 105 32 Q 75 40 52 29" stroke="#e6b865" stroke-width="2.5" fill="none" stroke-linecap="round"/>
@@ -522,21 +521,21 @@
         </defs>
     </svg>
 
-    <!-- FONDO CINEMATOGRÁFICO -->
+    <!-- FONDO CINEMATOGRÁFICO DE DÍA / SUEÑO -->
     <div id="cinematic-background">
         <div class="god-rays"></div>
-        <div class="stars-bg"></div>
+        <div class="magic-dust-bg"></div>
         
         <div class="giant-castle">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMax meet">
                 <defs>
                     <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#e8b4c8"/>
-                        <stop offset="100%" stop-color="#872450"/>
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="100%" stop-color="#ffdbe5"/>
                     </linearGradient>
                     <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#8ab4f8"/>
-                        <stop offset="100%" stop-color="#1e3a8a"/>
+                        <stop offset="0%" stop-color="#fbd6e2"/>
+                        <stop offset="100%" stop-color="#d4af37"/>
                     </linearGradient>
                     <filter id="glowStrong">
                         <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
@@ -559,20 +558,21 @@
                 <rect x="440" y="150" width="120" height="400" fill="url(#wall)"/>
                 <polygon points="420,150 500,0 580,150" fill="url(#roof)"/>
                 
-                <path d="M 400 800 L 400 650 C 400 550, 600 550, 600 650 L 600 800 Z" fill="#1a0512"/>
-                <path d="M 420 800 L 420 660 C 420 580, 580 580, 580 660 L 580 800 Z" fill="#e6b865" opacity="0.4"/>
+                <!-- Puertas y detalles en tono rosita suave -->
+                <path d="M 400 800 L 400 650 C 400 550, 600 550, 600 650 L 600 800 Z" fill="#ffcde0"/>
+                <path d="M 420 800 L 420 660 C 420 580, 580 580, 580 660 L 580 800 Z" fill="#ffffff" opacity="0.8"/>
                 
-                <!-- Ventanas iluminadas -->
-                <circle cx="150" cy="400" r="15" fill="#fff2cc" filter="url(#glowStrong)"/>
-                <circle cx="850" cy="400" r="15" fill="#fff2cc" filter="url(#glowStrong)"/>
-                <path d="M 340 350 L 340 280 C 340 260, 380 260, 380 280 L 380 350 Z" fill="#fff2cc" filter="url(#glowStrong)"/>
-                <path d="M 620 350 L 620 280 C 620 260, 660 260, 660 280 L 660 350 Z" fill="#fff2cc" filter="url(#glowStrong)"/>
-                <path d="M 460 300 L 460 220 C 460 190, 540 190, 540 220 L 540 300 Z" fill="#fff2cc" filter="url(#glowStrong)"/>
+                <!-- Ventanas iluminadas suaves -->
+                <circle cx="150" cy="400" r="15" fill="#fff5d6" filter="url(#glowStrong)"/>
+                <circle cx="850" cy="400" r="15" fill="#fff5d6" filter="url(#glowStrong)"/>
+                <path d="M 340 350 L 340 280 C 340 260, 380 260, 380 280 L 380 350 Z" fill="#fff5d6" filter="url(#glowStrong)"/>
+                <path d="M 620 350 L 620 280 C 620 260, 660 260, 660 280 L 660 350 Z" fill="#fff5d6" filter="url(#glowStrong)"/>
+                <path d="M 460 300 L 460 220 C 460 190, 540 190, 540 220 L 540 300 Z" fill="#fff5d6" filter="url(#glowStrong)"/>
                 
-                <!-- Destellos dorados -->
-                <polygon points="495,-30 505,-30 500,-50" fill="#e6b865"/>
-                <polygon points="355,20 365,20 360,0" fill="#e6b865"/>
-                <polygon points="635,20 645,20 640,0" fill="#e6b865"/>
+                <!-- Destellos dorados en el castillo -->
+                <polygon points="495,-30 505,-30 500,-50" fill="#d4af37"/>
+                <polygon points="355,20 365,20 360,0" fill="#d4af37"/>
+                <polygon points="635,20 645,20 640,0" fill="#d4af37"/>
             </svg>
         </div>
         <div class="lake"></div>
@@ -591,7 +591,7 @@
         <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
     </div>
 
-    <!-- LIBRO 3D MÁGICO (Cuento Antiguo) -->
+    <!-- LIBRO 3D MÁGICO (Cuento Tierno) -->
     <div id="book-screen">
         <div class="book-wrapper" id="magic-book-wrapper">
             <div class="book">
@@ -612,20 +612,20 @@
                             <p class="book-subtitle">Mi Bautizo</p>
                             <h1 class="book-title">Victoria<br>Guadalupe</h1>
                             
-                            <!-- Zapatillas de Ballet Vectoriales Doradas -->
-                            <svg style="width: 150px; height: 170px; margin: 25px 0; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M100 0 C 80 50, 60 80, 55 120" stroke="#e6b865" stroke-width="6" stroke-linecap="round" fill="none"/>
-                                <path d="M100 0 C 120 50, 140 80, 145 120" stroke="#e6b865" stroke-width="6" stroke-linecap="round" fill="none"/>
+                            <!-- Zapatillas de Ballet Vectoriales Doradas/Rosas -->
+                            <svg style="width: 150px; height: 170px; margin: 25px 0; filter: drop-shadow(0 15px 25px rgba(230,150,180,0.5));" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 0 C 80 50, 60 80, 55 120" stroke="#d4af37" stroke-width="6" stroke-linecap="round" fill="none"/>
+                                <path d="M100 0 C 120 50, 140 80, 145 120" stroke="#d4af37" stroke-width="6" stroke-linecap="round" fill="none"/>
                                 
                                 <g transform="translate(-5, 10) rotate(-10 75 140)">
-                                    <path d="M50 80 C 40 100, 35 150, 55 190 C 70 215, 90 215, 100 190 C 115 150, 110 100, 100 80 C 85 50, 65 50, 50 80 Z" fill="#e6b865"/>
-                                    <path d="M60 85 C 55 100, 55 140, 75 150 C 90 140, 95 100, 90 85 C 80 70, 70 70, 60 85 Z" fill="#8c6a2c" opacity="0.8"/>
-                                    <path d="M42 160 C 40 180, 55 210, 75 210 C 95 210, 108 180, 106 160 C 95 155, 55 155, 42 160 Z" fill="#fff2cc"/>
+                                    <path d="M50 80 C 40 100, 35 150, 55 190 C 70 215, 90 215, 100 190 C 115 150, 110 100, 100 80 C 85 50, 65 50, 50 80 Z" fill="#ffb6c9"/>
+                                    <path d="M60 85 C 55 100, 55 140, 75 150 C 90 140, 95 100, 90 85 C 80 70, 70 70, 60 85 Z" fill="#ff8db3" opacity="0.8"/>
+                                    <path d="M42 160 C 40 180, 55 210, 75 210 C 95 210, 108 180, 106 160 C 95 155, 55 155, 42 160 Z" fill="#d4af37"/>
                                 </g>
                                 <g transform="translate(15, 15) rotate(10 125 140)">
-                                    <path d="M50 80 C 40 100, 35 150, 55 190 C 70 215, 90 215, 100 190 C 115 150, 110 100, 100 80 C 85 50, 65 50, 50 80 Z" fill="#e6b865"/>
-                                    <path d="M60 85 C 55 100, 55 140, 75 150 C 90 140, 95 100, 90 85 C 80 70, 70 70, 60 85 Z" fill="#8c6a2c" opacity="0.8"/>
-                                    <path d="M42 160 C 40 180, 55 210, 75 210 C 95 210, 108 180, 106 160 C 95 155, 55 155, 42 160 Z" fill="#fff2cc"/>
+                                    <path d="M50 80 C 40 100, 35 150, 55 190 C 70 215, 90 215, 100 190 C 115 150, 110 100, 100 80 C 85 50, 65 50, 50 80 Z" fill="#ffb6c9"/>
+                                    <path d="M60 85 C 55 100, 55 140, 75 150 C 90 140, 95 100, 90 85 C 80 70, 70 70, 60 85 Z" fill="#ff8db3" opacity="0.8"/>
+                                    <path d="M42 160 C 40 180, 55 210, 75 210 C 95 210, 108 180, 106 160 C 95 155, 55 155, 42 160 Z" fill="#d4af37"/>
                                 </g>
                             </svg>
                             <p class="click-to-open">TOCA PARA ABRIR LA MAGIA</p>
@@ -643,13 +643,13 @@
         <!-- ESPEJO MÁGICO DE LA PRINCESA -->
         <div class="princess-portrait-container reveal">
             <div class="princess-frame">
-                <img src="bautizo5.jpg" alt="Princesa" onerror="this.src='https://placehold.co/400x600/3d0c24/e6b865?text=Foto+Bautizo+5'">
+                <img src="bautizo5.jpg" alt="Princesa" onerror="this.src='https://placehold.co/400x600/ffdbe5/d4af37?text=Foto+Bautizo+5'">
             </div>
         </div>
 
         <p class="scroll-phrase reveal">"Había una vez una hermosa princesa bailarina que llegó para llenar de alegría nuestros corazones y hoy recibe la luz..."</p>
         
-        <svg class="floral-divider reveal" viewBox="0 0 200 50"><path d="M0 25 Q 50 0 100 25 T 200 25 M100 10 L100 40 M90 25 L110 25" stroke="#e6b865" stroke-width="2" fill="none"/></svg>
+        <svg class="floral-divider reveal" viewBox="0 0 200 50"><path d="M0 25 Q 50 0 100 25 T 200 25 M100 10 L100 40 M90 25 L110 25" stroke="#d4af37" stroke-width="2" fill="none"/></svg>
 
         <div class="glass-panel reveal">
             <p class="subtitle-elegant">Con la bendición de Dios</p>
@@ -675,7 +675,7 @@
         </div>
 
         <p class="scroll-phrase reveal">"Los sueños más dulces se comparten en familia..."</p>
-        <svg class="floral-divider reveal" viewBox="0 0 200 50"><path d="M0 25 Q 50 50 100 25 T 200 25 M100 10 L100 40 M90 25 L110 25" stroke="#e6b865" stroke-width="2" fill="none"/></svg>
+        <svg class="floral-divider reveal" viewBox="0 0 200 50"><path d="M0 25 Q 50 50 100 25 T 200 25 M100 10 L100 40 M90 25 L110 25" stroke="#d4af37" stroke-width="2" fill="none"/></svg>
 
         <!-- SECCIÓN DE GALERÍA -->
         <div class="glass-panel reveal" style="padding: 50px 25px;">
@@ -685,22 +685,22 @@
             <div class="collage-grid">
                 <!-- Foto 1 (Ancha) -->
                 <div class="collage-item col-span-7" onclick="openLightbox('bautizo1.jpeg')">
-                    <img src="bautizo1.jpeg" alt="Recuerdo Bautizo 1" onerror="this.src='https://placehold.co/600x400/3d0c24/e6b865?text=Foto+1'">
+                    <img src="bautizo1.jpeg" alt="Recuerdo Bautizo 1" onerror="this.src='https://placehold.co/600x400/ffdbe5/d4af37?text=Foto+1'">
                     <div class="collage-overlay"><span>Pura Magia</span></div>
                 </div>
                 <!-- Foto 2 (Estrecha) -->
                 <div class="collage-item col-span-5" onclick="openLightbox('bautizo2.jpeg')">
-                    <img src="bautizo2.jpeg" alt="Recuerdo Bautizo 2" onerror="this.src='https://placehold.co/400x500/3d0c24/e6b865?text=Foto+2'">
+                    <img src="bautizo2.jpeg" alt="Recuerdo Bautizo 2" onerror="this.src='https://placehold.co/400x500/ffdbe5/d4af37?text=Foto+2'">
                     <div class="collage-overlay"><span>Sonrisas</span></div>
                 </div>
                 <!-- Foto 3 (Estrecha cruzada) -->
                 <div class="collage-item col-span-5" onclick="openLightbox('bautizo3.jpeg')">
-                    <img src="bautizo3.jpeg" alt="Recuerdo Bautizo 3" onerror="this.src='https://placehold.co/400x500/3d0c24/e6b865?text=Foto+3'">
+                    <img src="bautizo3.jpeg" alt="Recuerdo Bautizo 3" onerror="this.src='https://placehold.co/400x500/ffdbe5/d4af37?text=Foto+3'">
                     <div class="collage-overlay"><span>Inolvidable</span></div>
                 </div>
                 <!-- Foto 4 (Ancha) -->
                 <div class="collage-item col-span-7" onclick="openLightbox('bautizo4.jpeg')">
-                    <img src="bautizo4.jpeg" alt="Recuerdo Bautizo 4" onerror="this.src='https://placehold.co/600x400/3d0c24/e6b865?text=Foto+4'">
+                    <img src="bautizo4.jpeg" alt="Recuerdo Bautizo 4" onerror="this.src='https://placehold.co/600x400/ffdbe5/d4af37?text=Foto+4'">
                     <div class="collage-overlay"><span>Mi Cuento</span></div>
                 </div>
             </div>
@@ -731,7 +731,7 @@
             <svg class="icon-svg" style="width: 100px; height: 100px;" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             <h3 class="role-title" style="font-size: clamp(2rem, 8vw, 3rem); color: var(--color-magenta);">Muro de los Deseos</h3>
             <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 20px; font-size: 1.4rem; font-weight: 700;">Déjale un mensaje mágico a Victoria.</p>
-            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 40px; font-size: 1rem; color: #4a2c3a;">*Tus deseos se guardan localmente en tu dispositivo.</p>
+            <p style="font-family: 'Montserrat', sans-serif; margin-bottom: 40px; font-size: 1rem; color: #a8486f;">*Tus deseos se guardan localmente en tu dispositivo.</p>
             
             <button class="btn-luxury" id="btn-toggle-wishes" onclick="toggleWishes()" style="width: 100%; font-size: 1.2rem;">
                 ESCRIBIR UN DESEO
@@ -770,7 +770,7 @@
                     </svg>
                 </div>
             </div>
-            <p style="font-family: 'Alex Brush', cursive; font-size: clamp(2rem, 7vw, 2.8rem); color: var(--color-gold-light); margin-top: 20px; position: relative; z-index: 5; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">Bailando juntas en este cuento sin fin...</p>
+            <p style="font-family: 'Alex Brush', cursive; font-size: clamp(2rem, 7vw, 2.8rem); color: var(--color-magenta); margin-top: 20px; position: relative; z-index: 5; text-shadow: 0 2px 10px rgba(255,255,255,0.8);">Bailando juntas en este cuento sin fin...</p>
         </div>
 
         <!-- SECCIÓN FINAL Y RSVP -->
@@ -806,7 +806,7 @@
                     </button>
                 </form>
             </div>
-            <div id="rsvp-msg" style="display:none; margin-top: 60px; font-size: clamp(2.2rem, 8vw, 3.5rem); color: var(--color-magenta-glow); line-height: 1.1; font-family: 'Alex Brush', cursive; text-shadow: 0 0 35px rgba(255,255,255,0.9); position: relative; z-index: 10;">¡Tu presencia hará este día aún más mágico!</div>
+            <div id="rsvp-msg" style="display:none; margin-top: 60px; font-size: clamp(2.2rem, 8vw, 3.5rem); color: var(--color-magenta); line-height: 1.1; font-family: 'Alex Brush', cursive; text-shadow: 0 0 15px rgba(255,255,255,0.9); position: relative; z-index: 10;">¡Tu presencia hará este día aún más mágico!</div>
         </div>
     </div>
 
@@ -889,7 +889,7 @@
         window.addEventListener('resize', resizeCanvas); resizeCanvas();
 
         function createSparkle() {
-            const colors = ['#e6b865', '#fff2cc', '#ffffff', '#ff2a85'];
+            const colors = ['#d4af37', '#fff5d6', '#ffffff', '#ff9ebe'];
             return {
                 x: Math.random() * canvas.width, y: canvas.height + 10,
                 size: Math.random() * 3 + 1.5,
@@ -944,7 +944,7 @@
             setInterval(spawnRose, 1000);
         }
 
-        // --- FUEGOS ARTIFICIALES ---
+        // --- FUEGOS ARTIFICIALES (Suaves y Pastel) ---
         function startFireworks() {
             const fwCanvas = document.getElementById('fireworks-canvas');
             const fwCtx = fwCanvas.getContext('2d');
@@ -953,7 +953,7 @@
             window.addEventListener('resize', resizeFwCanvas); resizeFwCanvas();
 
             function createExplosion(x, y) {
-                const colors = ['#e6b865', '#ff2a85', '#ffffff', '#fff2cc'];
+                const colors = ['#d4af37', '#ff9ebe', '#ffffff', '#fff5d6'];
                 for(let i=0; i<60; i++) {
                     fwParticles.push({
                         x: x, y: y, vx: (Math.random() - 0.5) * 15, vy: (Math.random() - 0.5) * 15,
@@ -1004,7 +1004,7 @@
                 <div class="wish-card">
                     <h4 style="font-family: 'Cinzel', serif; color: var(--color-magenta); font-size: 1.5rem; font-weight: 800;">${w.name}</h4>
                     <p style="font-family: 'Montserrat', sans-serif; font-size: 1.2rem; margin: 15px 0; color: var(--color-text-dark); line-height: 1.6; position:relative; z-index:2;">"${w.msg}"</p>
-                    <small style="color: #8c6a2c; font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight:600;">${w.date}</small>
+                    <small style="color: var(--color-gold-dark); font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight:600;">${w.date}</small>
                 </div>
             `).join('');
         }
